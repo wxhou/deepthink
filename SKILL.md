@@ -20,11 +20,12 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 - 拆解为最小逻辑子问题，按依赖顺序排列
 - 明确最终目标和成功标准
 - 设定目标置信度 (High/Medium/Low)
+- **如对问题有疑问 → 立即使用 AskUserQuestion 工具提问**
 
 ### 2. 苏格拉底提问
 选择适用的追问：
 
-1. **Clarify** - 我真正理解问题了吗？（如有疑问先问用户）
+1. **Clarify** - 我真正理解问题了吗？→ **如有疑问必须使用 AskUserQuestion 工具提问**
 2. **Assumptions** - 我做了什么假设？
 3. **Evidence** - 需要什么证据？不确定的信息有哪些？
 4. **Counterexamples** - 有反例吗？
@@ -89,7 +90,8 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 
 ## 注意事项
 - 不是所有步骤都需要详细展开，选择与问题相关的阶段
-- 信息不足时先问用户，不要猜测
+- **信息不足时必须先问用户** → 使用 `AskUserQuestion` 工具获取澄清
+- 永远不要猜测用户意图，有疑问先问
 
 ## 流程图
 
