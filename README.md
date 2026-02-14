@@ -1,17 +1,21 @@
 # deepthink
 
-A Claude Code skill for deep thinking using sequentialthinking MCP.
+Advanced deep thinking skill for Claude Code - enables rigorous, structured reasoning for complex problems.
 
 ## What is this?
 
-This skill triggers deep, multi-round thinking before answering questions - helps avoid superficial answers by analyzing the problem thoroughly first.
+This skill triggers advanced structured reasoning before answering questions. It follows a strict multi-layer protocol to:
+- Minimize hallucinations
+- Explore alternatives
+- Achieve high-confidence answers
 
 ## Features
 
-- Uses `sequentialthinking` MCP for structured deep analysis
-- Automatically determines how many thinking rounds are needed
-- Confirms understanding before answering
-- Helps avoid mistakes like answering without understanding the full context
+- **Problem Decomposition** - Break complex queries into logical sub-problems
+- **Multi-Layer Thinking** - Understand → Plan → Execute → Verify cycle
+- **Self-Questioning Loop** - Challenge your assumptions with 6+ deep questions
+- **Tool Integration** - Search/verify uncertain facts instead of guessing
+- **Structured Output** - Clear conclusions with confidence levels
 
 ## Installation
 
@@ -22,9 +26,11 @@ This skill triggers deep, multi-round thinking before answering questions - help
 git clone https://github.com/wxhou/deepthink.git ~/.claude/skills/deepthink
 ```
 
-### Method 2: Using Skill tool (if available)
+### Method 2: Using Plugin (if available)
 
-In Claude Code, you can install skills via the skill marketplace or by placing the skill in your skills directory.
+```bash
+/plugin install deepthink-marketplace
+```
 
 ## Usage
 
@@ -43,34 +49,70 @@ Or alternatively:
 
 ## How it works
 
-1. Loads the `sequentialthinking` MCP tool
-2. Runs multi-round thinking - MCP decides the number of iterations
-3. Analyzes: What is the user really asking? Any ambiguities? What assumptions am I making?
-4. Confirms understanding with user if unclear
-5. Then proceeds to answer
+1. **Problem Decomposition** - Break query into sub-problems
+2. **Multi-Layer Thinking** - Understand → Plan → Execute → Verify
+3. **Self-Questioning** - Challenge assumptions with 6+ questions
+4. **Tool Verification** - Search/verify uncertain facts
+5. **Structured Output** - Conclusion + Confidence Level + Limitations
+
+## Output Format
+
+```
+---
+## 🤔 DeepThink 深度分析
+
+### 问题拆解
+1. [子问题1]
+2. [子问题2]
+...
+
+### 思考过程
+[详细推理链]
+
+### 自我追问
+- Q: 最弱的假设是什么? A: ...
+- Q: 有更简单的方案吗? A: ...
+...
+
+### 结论
+[最终答案]
+
+### 置信度: [High/Medium/Low]
+### 限制/注意事项: [如有]
+---
+```
 
 ## Requirements
 
 - Claude Code CLI
-- `sequentialthinking` MCP - **Built-in, no installation needed** (comes with Claude Code by default)
+- `sequentialthinking` MCP - **Built-in, no installation needed**
+
+## Examples
+
+```
+/deepthink 如何设计一个高效的消息队列系统？
+→ Decompose: 架构→持久化→高可用→性能优化
+→ Plan: 对比 Kafka/RabbitMQ/Redis
+→ Execute: 搜索最新方案
+→ Self-question: 瓶颈在哪? 扩展性?
+→ Output with confidence level
+
+/deepthink 分析当前AI Agent的发展趋势
+→ Search latest developments
+→ Verify claims with sources
+→ Structured timeline output
+→ Confidence: High
+```
 
 ## FAQ
 
 ### Q: Do I need to install sequentialthinking separately?
 **A: No!** The `sequentialthinking` MCP is built into Claude Code. Just install this skill and it will work.
 
-## Example
-
-```
-/deepthink Why did my previous answer about going to the car wash fail?
-```
-
-The skill will think through:
-- What was the actual question context?
-- What assumptions were made?
-- What information was missing?
-- Then provide a more thoughtful answer
+### Q: Does this run automatically on every question?
+**A:** No. You must explicitly invoke with `/deepthink`. Claude Code doesn't support "pre-response hooks" yet.
 
 ---
 
-**Note**: This skill needs to be explicitly invoked with `/deepthink` - it won't automatically run on every question (Claude Code doesn't support "pre-response hooks" yet).
+**Version**: 2.0.0
+**Author**: wxhou
