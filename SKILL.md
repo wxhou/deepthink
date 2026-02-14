@@ -1,20 +1,45 @@
 ---
 name: deepthink
-description: Use when user asks with /deepthink or /think prefix, or wants deep analysis - triggers advanced structured reasoning to ensure thorough, accurate answers. Activates for complex, analytical, reasoning-intensive queries.
+description: Use when user asks with /deepthink or /think prefix, or wants deep analysis - triggers advanced structured reasoning with automatic complexity detection. Activates for complex, analytical, reasoning-intensive queries.
 ---
 
-# /deepthink - Advanced Deep Thinking Skill
+# /deepthink - Smart Deep Thinking Skill
 
 ## When to Use
 
 - User writes `/deepthink xxx` or `/think xxx` or `/深度思考 xxx`
 - User explicitly asks to "think deeper" or "深度思考"
-- Question is ambiguous and needs careful analysis
 - Complex problem solving, research, step-by-step thinking
 - User wants high-confidence, well-reasoned answers
-- Questions requiring multi-step logic, evidence, or verification
 
-## Core Protocol (Strictly Follow)
+## Quick Decision: Deep Mode vs Quick Mode
+
+**Before following the full protocol, first assess the question complexity:**
+
+### Quick Mode (Skip to Output)
+For simple questions:
+- Factual queries ("今天周几?")
+- Confirmation ("这个文件存在吗?")
+- Single-command tasks ("帮我运行 npm install")
+- Yes/No questions
+
+**Quick Mode Response:**
+- Direct answer in 1-2 sentences
+- Skip detailed analysis
+- No structured format needed
+
+### Deep Mode (Follow Full Protocol)
+For complex questions:
+- Multiple factors to consider
+- Trade-offs to evaluate
+- No clear "right answer"
+- Requires research or evidence
+- Decision-making or planning
+- Technical architecture
+
+---
+
+## Core Protocol (For Deep Mode Only)
 
 ### 1. Problem Decomposition
 - Break query into smallest logical sub-problems
@@ -45,96 +70,98 @@ For each sub-problem, cycle through:
 - Look for contradictions
 - Test edge cases
 
-### 3. Self-Questioning Loop (Mandatory)
-Use **Socratic Method + 5 Whys** combination:
+### 3. Self-Questioning Loop (Smart Selection)
+**NOT all questions need all 6 questions. Select relevant ones:**
 
-#### Socratic Questions (Core 6):
-1. **Clarify** - 我的理解正确吗？问题的核心是什么？
-2. **Challenge assumptions** - 我做了什么假设？最弱的假设是什么？
-3. **Find evidence** - 支持这个结论的证据是什么？
-4. **Find counterexamples** - 有没有反例？能举出反例吗？
-5. **Consider alternatives** - 有没有其他解释/方案？
-6. **Consequences** - 如果结论错了，会有什么后果？
+#### Choose applicable Socratic Questions:
+1. **Clarify** - Is my understanding correct? (If ambiguous → ask user)
+2. **Challenge assumptions** - What assumptions am I making? (If many → list them)
+3. **Find evidence** - What's the evidence? (If claims made → verify)
+4. **Find counterexamples** - Any counterexamples? (If strong claim → seek)
+5. **Consider alternatives** - Other solutions? (If decision → compare)
+6. **Consequences** - What if wrong? (If risky → assess)
 
-#### 5 Whys (for root cause):
-- 为什么？
-- 为什么？
-- 为什么？
-- 为什么？
-- 为什么？
-
-**组合使用**：
-- 先用 Socratic Questions 全面检查
-- 如需找根本原因，再用 5 Whys 追问
+**5 Whys** - Only use when finding root cause is essential
 
 ### 4. Tool Integration
 - **Never guess** uncertain facts: always search/verify first
 - Use available tools: web_search → read files → code execution
 - After tool results → re-verify with new information
 
-### 5. Synthesis & Output
-Combine all results:
-- Check overall consistency
-- Consider alternative interpretations (if ambiguous)
-- Provide structured answer with:
-  - Key conclusions (numbered/bulleted)
-  - Confidence level
-  - Limitations
-  - Follow-up suggestions
+### 5. Adaptive Output
 
-## Required Output Format
+**For Quick Questions:** Direct answer, 1-2 sentences
 
+**For Complex Questions:**
 ```
 ---
-## 🤔 DeepThink 深度分析
+## 🤔 DeepThink 分析
 
-### 问题拆解
-1. [子问题1]
-2. [子问题2]
-...
+### 核心问题
+[1句话概括真正问题]
 
-### 思考过程
-[详细的推理链]
-
-### 自我追问（苏格拉底式 + 5 Whys）
-#### 苏格拉底提问：
-- Q: 我的理解正确吗? A: ...
-- Q: 最弱的假设是什么? A: ...
-- Q: 有没有反例? A: ...
-- Q: 有没有其他方案? A: ...
-- Q: 如果错了会有什么后果? A: ...
-
-#### 5 Whys（如需找根本原因）：
-- 为什么? → 为什么? → 为什么? → 为什么? → 为什么?
+### 关键分析
+[根据问题选择相关分析，不是全写]
 
 ### 结论
 [最终答案]
 
 ### 置信度: [High/Medium/Low]
-### 限制/注意事项: [如有]
 ---
 ```
 
+**Keep it concise**: If 3 points cover it, don't list 10.
+
+---
+
+## Adaptive Response Rules
+
+| Question Type | Response Style |
+|--------------|---------------|
+| Simple fact | Direct answer, skip format |
+| How-to guide | Steps + key considerations |
+| Decision | Pros/cons + recommendation |
+| Analysis | Core insight + evidence |
+| Research | Summary + sources |
+
+---
+
 ## Important
 
-- This skill is triggered by user intent, not automatically on every question
-- Follow the full protocol: do not shortcut steps
-- If information is insufficient, ask user before guessing
-- Always assign confidence level to final answer
+- **Always start with complexity assessment**
+- Quick questions → Quick Mode (skip full protocol)
+- Complex questions → Deep Mode (follow protocol selectively)
+- Not all steps always needed - be adaptive
+- If information insufficient → ask user before guessing
 
 ## Examples
 
 ```
-/deepthink 如何设计一个高效的消息队列系统？
-→ Decompose: 架构→持久化→高可用→性能优化
-→ Plan: 对比 Kafka/RabbitMQ/Redis
-→ Execute: 搜索最新方案
-→ Self-question: 瓶颈在哪? 扩展性?
-→ Output with confidence level
+# Quick Mode
+/deepthink 今天周几？
+→ 直接回答: 今天是周五。
 
-/deepthink 分析当前AI Agent的发展趋势
-→ Search latest developments
-→ Verify claims with sources
-→ Structured timeline output
-→ Confidence: High (based on recent data)
+# Deep Mode
+/deepthink 应该选择 PostgreSQL 还是 MongoDB？
+→ Problem: 数据库选型
+→ Analysis: 对比场景、性能、一致性
+→ Conclusion: 根据场景推荐 + 置信度
+```
+
+---
+
+## Flowchart
+
+```
+用户输入 /deepthink xxx
+    ↓
+判断复杂度（快速模式 vs 深度模式）
+    ↓
+├── 简单问题 → 直接回答，简洁
+    ↓
+└── 复杂问题 → 选择性执行步骤
+        ├── 需要拆解？→ 问题拆解
+        ├── 需要验证？→ 搜索验证
+        ├── 需要质疑？→ 选择性自我追问
+        └── 总结输出 + 置信度
 ```
