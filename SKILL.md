@@ -37,6 +37,7 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 ### 3. 多层次分析
 对每个子问题循环执行：
 
+- **Tree of Thoughts (ToT)**: 复杂问题先探索2-3条推理路径，比较后再深入
 - **理解**: 用自己的话重述，列出假设和边界
 - **规划**: 头脑风暴2-4个策略，评估优缺点
 - **执行**: 步步为营，需要外部信息→立即搜索验证
@@ -97,7 +98,7 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 ## 流程图
 
 ```
-问题 → 问题拆解 → 苏格拉底提问 → 多层次分析
+问题 → 问题拆解 → ToT多路径探索 → 苏格拉底提问 → 多层次分析
     ↓
 验证（反思/第一性/逆向）←— 迭代（如需要）
     ↓
