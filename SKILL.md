@@ -89,6 +89,9 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 ### 结论
 [最终答案]
 
+### 一句话总结
+[用一句话概括核心建议]
+
 ### 置信度: [High/Medium/Low]
 ---
 ```
