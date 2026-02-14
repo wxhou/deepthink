@@ -20,6 +20,8 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 - 拆解为最小逻辑子问题，按依赖顺序排列
 - 明确最终目标和成功标准
 - 设定目标置信度 (High/Medium/Low)
+- 设定思考轮次范围，根据问题复杂度调整上限
+- 评估是否需要搜索：遇到不确定的信息就搜索，遵循自然的"我不确定，所以要查"
 - **如对问题有疑问 → 立即使用 AskUserQuestion 工具提问**
 
 ### 2. 苏格拉底提问
@@ -51,6 +53,11 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 - **第一性原理**: 剥离表象，最核心的物理/逻辑约束是什么？
 - **逆向验证**: 从目标倒推，必经路径是什么？
 
+**动态评估**：在验证阶段，必须评估当前思考轮次是否足够：
+- 是否还有重要维度未充分展开？
+- 是否有新发现需要追加思考？
+- 如需要，继续追加思考轮次
+
 ### 5. 迭代
 如满足任一条件则迭代：
 - 问题涉及多个子系统
@@ -59,9 +66,18 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 
 迭代流程：重新定义问题 → 补充证据 → 重新分析 → 验证
 
+### 6. 流程完整性确认
+输出结论前，确认以下步骤都已执行：
+- ToT多路径探索是否完成？
+- 验证（反思/第一性原理/逆向）是否完成？
+- 迭代是否完成（如果需要）？
+- 如有遗漏，补充完成后再输出结论
+
 ---
 
 ## 工具使用
+
+遇到不确定的信息时，自然的"我不确定，所以要查"
 
 **显式使用 ReAct 循环：**
 - **Reason**: 我需要查什么？明确要搜索的问题（不要加年份限定）
@@ -107,5 +123,5 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
     ↓
 验证（反思/第一性/逆向）←— 迭代（如需要）
     ↓
-总结输出 + 置信度
+流程完整性确认 → 总结输出 + 置信度
 ```
