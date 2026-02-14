@@ -41,7 +41,7 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 - **规划**: 头脑风暴2-4个策略，评估优缺点
 - **执行**: 步步为营，需要外部信息→立即搜索验证
 - **验证**: 检查逻辑一致性，寻找矛盾，测试边界
-- **假设验证**: 列出关键假设，结论前确认假设是否成立
+- **假设验证**: 列出关键假设，通过迭代自行验证假设是否成立
 
 ### 4. 验证（选择性）
 根据问题类型选择验证方式：
@@ -76,7 +76,7 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 [1句话概括真正问题]
 
 ### 关键假设
-[列出分析中的关键假设，让用户确认]
+[列出分析中的关键假设，自行迭代验证]
 
 ### 结论
 [最终答案]
