@@ -94,11 +94,6 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 
 ### 置信度: [High/Medium/Low]
 ---
-```
-
-**简洁原则**: 3点能说清就不列10点
-
----
 
 ## 注意事项
 - 不是所有步骤都需要详细展开，选择与问题相关的阶段
