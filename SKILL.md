@@ -14,13 +14,34 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 
 ## Core Protocol
 
-> **Note**: Use **sequentialthinking MCP** to structure the reasoning process.
+> **Note**: Use **sequentialthinking MCP** to structure the reasoning process. Think of this like Claude's "adaptive thinking" - dynamically adjust depth based on task complexity.
+
+### 0. 复杂度评估（第一步）
+在正式思考前，先评估问题复杂度，设定思考深度：
+
+**简单问题**（如事实查询、数学题、简单选择）：
+- 需要外部信息吗？→ 否
+- 涉及多角度分析？→ 否
+- 轮次建议：3-4轮
+
+**中等问题**（如分析类、比较类）：
+- 需要搜索验证？→ 是
+- 涉及2-3个子问题？→ 是
+- 轮次建议：5-6轮
+
+**复杂问题**（如深度分析、多系统决策）：
+- 需要多轮搜索？→ 是
+- 涉及多个子系统/假设？→ 是
+- 需要迭代验证？→ 是
+- 轮次建议：7-8轮
+
+**注意**：这是预估，过程中根据实际发现动态调整。
 
 ### 1. 问题拆解
 - 拆解为最小逻辑子问题，按依赖顺序排列
 - 明确最终目标和成功标准
 - 设定目标置信度 (High/Medium/Low)
-- 设定思考轮次范围，根据问题复杂度调整上限
+- 根据步骤0的复杂度评估，设定思考轮次范围（注意：这是预估，过程中动态调整）
 - 评估是否需要搜索：遇到不确定的信息就搜索，遵循自然的"我不确定，所以要查"
 - **如对问题有疑问 → 立即使用 AskUserQuestion 工具提问**
 
@@ -55,10 +76,11 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 - **逆向验证**: 从目标倒推，必经路径是什么？
 - **自洽性检验**: 如果用完全不同的推理路径重新分析，结论是否仍然一致？
 
-**动态评估**：在验证阶段，必须评估当前思考轮次是否足够：
-- 是否还有重要维度未充分展开？
-- 是否有新发现需要追加思考？
-- 如需要，继续追加思考轮次
+**动态评估**：在验证阶段（以及整个思考过程中），根据实际情况调整思考深度：
+- 遇到意外复杂的情况？→ 追加轮次
+- 发现问题比预想的简单？→ 可以提前结束
+- 需要多次搜索验证？→ 增加轮次
+- 如需要，使用 `needsMoreThoughts: true` 继续追加轮次
 
 ### 5. 迭代
 如满足任一条件则迭代：
