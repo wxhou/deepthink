@@ -1,12 +1,12 @@
 ---
 name: deepthink
-description: Use when user asks with /deepthink or /think prefix, or wants deep analysis - triggers advanced structured reasoning with automatic complexity detection. Activates for complex, analytical, reasoning-intensive queries.
+description: Use when user asks with /deepthink prefix, or wants deep analysis - triggers advanced structured reasoning with automatic complexity detection. Activates for complex, analytical, reasoning-intensive queries.
 ---
 
 # /deepthink - Smart Deep Thinking Skill
 
 ## When to Use
-- User writes `/deepthink xxx` or `/think xxx` or `/深度思考 xxx`
+- User writes `/deepthink xxx`
 - Complex problem solving, research, step-by-step thinking
 - User wants high-confidence, well-reasoned answers
 
