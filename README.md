@@ -52,7 +52,12 @@ Or alternatively:
 ## Requirements
 
 - Claude Code CLI
-- `sequentialthinking` MCP (usually available by default)
+- `sequentialthinking` MCP - **Built-in, no installation needed** (comes with Claude Code by default)
+
+## FAQ
+
+### Q: Do I need to install sequentialthinking separately?
+**A: No!** The `sequentialthinking` MCP is built into Claude Code. Just install this skill and it will work.
 
 ## Example
 
