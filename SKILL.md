@@ -64,12 +64,12 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 ## 工具使用
 
 **显式使用 ReAct 循环：**
-- **Reason**: 我需要查什么？明确要搜索的问题
+- **Reason**: 我需要查什么？明确要搜索的问题（不要加年份限定）
 - **Act**: 调用搜索/读取等工具
 - **Observe**: 看工具返回的结果
 - **Reason**: 基于结果继续推理
 
-- **Never guess**: 不确定的信息先搜索验证
+- **Never guess**: 不确定的信息先搜索验证（不要加年份限定）
 - **工具返回后**: 基于新信息重新验证
 
 ---
