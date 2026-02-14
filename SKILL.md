@@ -6,93 +6,66 @@ description: Use when user asks with /deepthink or /think prefix, or wants deep 
 # /deepthink - Smart Deep Thinking Skill
 
 ## When to Use
-
 - User writes `/deepthink xxx` or `/think xxx` or `/深度思考 xxx`
-- User explicitly asks to "think deeper" or "深度思考"
 - Complex problem solving, research, step-by-step thinking
 - User wants high-confidence, well-reasoned answers
 
-## Quick Decision: Deep Mode vs Quick Mode
+---
 
-**Before following the full protocol, first assess the question complexity:**
+## Core Protocol
 
-### Quick Mode (Skip to Output)
-For simple questions:
-- Factual queries ("今天周几?")
-- Confirmation ("这个文件存在吗?")
-- Single-command tasks ("帮我运行 npm install")
-- Yes/No questions
+> **Note**: Use **sequentialthinking MCP** to structure the reasoning process.
 
-**Quick Mode Response:**
-- Direct answer in 1-2 sentences
-- Skip detailed analysis
-- No structured format needed
+### 1. 问题拆解
+- 拆解为最小逻辑子问题，按依赖顺序排列
+- 明确最终目标和成功标准
+- 设定目标置信度 (High/Medium/Low)
 
-### Deep Mode (Follow Full Protocol)
-For complex questions:
-- Multiple factors to consider
-- Trade-offs to evaluate
-- No clear "right answer"
-- Requires research or evidence
-- Decision-making or planning
-- Technical architecture
+### 2. 苏格拉底提问
+选择适用的追问：
+
+1. **Clarify** - 我真正理解问题了吗？（如有疑问先问用户）
+2. **Assumptions** - 我做了什么假设？
+3. **Evidence** - 需要什么证据？不确定的信息有哪些？
+4. **Counterexamples** - 有反例吗？
+5. **Alternatives** - 有其他方案吗？
+6. **Consequences** - 错了会怎样？
+
+**5 Whys** - 仅在寻找根因时使用
+
+### 3. 多层次分析
+对每个子问题循环执行：
+
+- **理解**: 用自己的话重述，列出假设和边界
+- **规划**: 头脑风暴2-4个策略，评估优缺点
+- **执行**: 步步为营，需要外部信息→立即搜索验证
+- **验证**: 检查逻辑一致性，寻找矛盾，测试边界
+
+### 4. 验证（选择性）
+根据问题类型选择验证方式：
+
+- **反思机制**: 前提反转结论还成立吗？最弱链是哪个假设？
+- **第一性原理**: 剥离表象，最核心的物理/逻辑约束是什么？
+- **逆向验证**: 从目标倒推，必经路径是什么？
+
+### 5. 迭代
+如满足任一条件则迭代：
+- 问题涉及多个子系统
+- 结论依赖多个假设
+- 置信度为 Low/Medium
+
+迭代流程：重新定义问题 → 补充证据 → 重新分析 → 验证
 
 ---
 
-## Core Protocol (For Deep Mode Only)
+## 工具使用
+- **Never guess**: 不确定的信息先搜索验证
+- **工具返回后**: 基于新信息重新验证
 
-### 1. Problem Decomposition
-- Break query into smallest logical sub-problems
-- Number them in dependency order
-- Identify final goal and success criteria
-- Determine required confidence level (High/Medium/Low)
+---
 
-### 2. Multi-Layer Thinking Process
-For each sub-problem, cycle through:
+## 输出格式
 
-**Understand**:
-- Rephrase the sub-problem in your own words
-- List all assumptions being made
-- Define boundaries and potential pitfalls
-
-**Plan**:
-- Brainstorm 2-4 strategies
-- Evaluate pros/cons of each
-- Select optimal approach
-
-**Execute**:
-- Step-by-step implementation
-- If external info needed → use tools immediately
-- Search/verify uncertain facts (never guess)
-
-**Verify**:
-- Check logic consistency
-- Look for contradictions
-- Test edge cases
-
-### 3. Self-Questioning Loop (Smart Selection)
-**NOT all questions need all 6 questions. Select relevant ones:**
-
-#### Choose applicable Socratic Questions:
-1. **Clarify** - Is my understanding correct? (If ambiguous → ask user)
-2. **Challenge assumptions** - What assumptions am I making? (If many → list them)
-3. **Find evidence** - What's the evidence? (If claims made → verify)
-4. **Find counterexamples** - Any counterexamples? (If strong claim → seek)
-5. **Consider alternatives** - Other solutions? (If decision → compare)
-6. **Consequences** - What if wrong? (If risky → assess)
-
-**5 Whys** - Only use when finding root cause is essential
-
-### 4. Tool Integration
-- **Never guess** uncertain facts: always search/verify first
-- Use available tools: web_search → read files → code execution
-- After tool results → re-verify with new information
-
-### 5. Adaptive Output
-
-**For Quick Questions:** Direct answer, 1-2 sentences
-
-**For Complex Questions:**
 ```
 ---
 ## 🤔 DeepThink 分析
@@ -101,7 +74,7 @@ For each sub-problem, cycle through:
 [1句话概括真正问题]
 
 ### 关键分析
-[根据问题选择相关分析，不是全写]
+[选择相关的分析阶段]
 
 ### 结论
 [最终答案]
@@ -110,58 +83,20 @@ For each sub-problem, cycle through:
 ---
 ```
 
-**Keep it concise**: If 3 points cover it, don't list 10.
+**简洁原则**: 3点能说清就不列10点
 
 ---
 
-## Adaptive Response Rules
+## 注意事项
+- 不是所有步骤都需要详细展开，选择与问题相关的阶段
+- 信息不足时先问用户，不要猜测
 
-| Question Type | Response Style |
-|--------------|---------------|
-| Simple fact | Direct answer, skip format |
-| How-to guide | Steps + key considerations |
-| Decision | Pros/cons + recommendation |
-| Analysis | Core insight + evidence |
-| Research | Summary + sources |
-
----
-
-## Important
-
-- **Always start with complexity assessment**
-- Quick questions → Quick Mode (skip full protocol)
-- Complex questions → Deep Mode (follow protocol selectively)
-- Not all steps always needed - be adaptive
-- If information insufficient → ask user before guessing
-
-## Examples
+## 流程图
 
 ```
-# Quick Mode
-/deepthink 今天周几？
-→ 直接回答: 今天是周五。
-
-# Deep Mode
-/deepthink 应该选择 PostgreSQL 还是 MongoDB？
-→ Problem: 数据库选型
-→ Analysis: 对比场景、性能、一致性
-→ Conclusion: 根据场景推荐 + 置信度
-```
-
----
-
-## Flowchart
-
-```
-用户输入 /deepthink xxx
+问题 → 问题拆解 → 苏格拉底提问 → 多层次分析
     ↓
-判断复杂度（快速模式 vs 深度模式）
+验证（反思/第一性/逆向）←— 迭代（如需要）
     ↓
-├── 简单问题 → 直接回答，简洁
-    ↓
-└── 复杂问题 → 选择性执行步骤
-        ├── 需要拆解？→ 问题拆解
-        ├── 需要验证？→ 搜索验证
-        ├── 需要质疑？→ 选择性自我追问
-        └── 总结输出 + 置信度
+总结输出 + 置信度
 ```
