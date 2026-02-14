@@ -46,13 +46,26 @@ For each sub-problem, cycle through:
 - Test edge cases
 
 ### 3. Self-Questioning Loop (Mandatory)
-Force at least 6 challenging questions:
-- What is the weakest assumption? Provide counterexamples.
-- Is there a simpler or more elegant solution?
-- How would results change if a key condition varies?
-- What risks or limitations does this conclusion have?
-- Am I missing critical information? (If yes → search immediately)
-- Can this conclusion be proven more rigorously?
+Use **Socratic Method + 5 Whys** combination:
+
+#### Socratic Questions (Core 6):
+1. **Clarify** - 我的理解正确吗？问题的核心是什么？
+2. **Challenge assumptions** - 我做了什么假设？最弱的假设是什么？
+3. **Find evidence** - 支持这个结论的证据是什么？
+4. **Find counterexamples** - 有没有反例？能举出反例吗？
+5. **Consider alternatives** - 有没有其他解释/方案？
+6. **Consequences** - 如果结论错了，会有什么后果？
+
+#### 5 Whys (for root cause):
+- 为什么？
+- 为什么？
+- 为什么？
+- 为什么？
+- 为什么？
+
+**组合使用**：
+- 先用 Socratic Questions 全面检查
+- 如需找根本原因，再用 5 Whys 追问
 
 ### 4. Tool Integration
 - **Never guess** uncertain facts: always search/verify first
@@ -83,10 +96,16 @@ Combine all results:
 ### 思考过程
 [详细的推理链]
 
-### 自我追问
+### 自我追问（苏格拉底式 + 5 Whys）
+#### 苏格拉底提问：
+- Q: 我的理解正确吗? A: ...
 - Q: 最弱的假设是什么? A: ...
-- Q: 有更简单的方案吗? A: ...
-...
+- Q: 有没有反例? A: ...
+- Q: 有没有其他方案? A: ...
+- Q: 如果错了会有什么后果? A: ...
+
+#### 5 Whys（如需找根本原因）：
+- 为什么? → 为什么? → 为什么? → 为什么? → 为什么?
 
 ### 结论
 [最终答案]

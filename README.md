@@ -13,7 +13,7 @@ This skill triggers advanced structured reasoning before answering questions. It
 
 - **Problem Decomposition** - Break complex queries into logical sub-problems
 - **Multi-Layer Thinking** - Understand → Plan → Execute → Verify cycle
-- **Self-Questioning Loop** - Challenge your assumptions with 6+ deep questions
+- **Self-Questioning Loop** - Socratic Method + 5 Whys for deep analysis
 - **Tool Integration** - Search/verify uncertain facts instead of guessing
 - **Structured Output** - Clear conclusions with confidence levels
 
@@ -51,7 +51,7 @@ Or alternatively:
 
 1. **Problem Decomposition** - Break query into sub-problems
 2. **Multi-Layer Thinking** - Understand → Plan → Execute → Verify
-3. **Self-Questioning** - Challenge assumptions with 6+ questions
+3. **Self-Questioning** - Socratic Method (6 questions) + 5 Whys
 4. **Tool Verification** - Search/verify uncertain facts
 5. **Structured Output** - Conclusion + Confidence Level + Limitations
 
@@ -69,10 +69,16 @@ Or alternatively:
 ### 思考过程
 [详细推理链]
 
-### 自我追问
+### 自我追问（苏格拉底式 + 5 Whys）
+#### 苏格拉底提问：
+- Q: 我的理解正确吗? A: ...
 - Q: 最弱的假设是什么? A: ...
-- Q: 有更简单的方案吗? A: ...
-...
+- Q: 有没有反例? A: ...
+- Q: 有没有其他方案? A: ...
+- Q: 如果错了会有什么后果? A: ...
+
+#### 5 Whys（如需找根本原因）：
+- 为什么? → 为什么? → 为什么? → 为什么? → 为什么?
 
 ### 结论
 [最终答案]
