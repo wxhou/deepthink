@@ -18,6 +18,9 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 > Inspired by Claude's adaptive thinking: automatically detect complexity and adjust reasoning depth.
 
 ### 1. 问题拆解
+
+> **假设检查**: 第一轮思考后，必须列出关键假设，并问"这些假设都对吗？"适用任何问题，对抗"初始假设锁定"。
+
 - 拆解为最小逻辑子问题，按依赖顺序排列
 - 明确最终目标和成功标准
 - 设定目标置信度 (High/Medium/Low)
@@ -42,14 +45,6 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 - **联动规则**：复杂度评估中判断"需要外部信息搜索"的维度，必须进行搜索验证——不能因为"觉得我已知道"而不搜索
 - **评估当下是否需要搜索**：遇到不确定的信息就搜索，遵循自然的"我不确定，所以要查"
 - **如对问题有疑问**: 立即使用 AskUserQuestion 工具提问
-
-### 1.4 假设检查
-
-**第一轮思考后，必须列出关键假设，并问"这些假设都对吗？"**
-
-- **假设** = 你认为"理所当然"的事情
-- **检查** = 反转假设，看结论还成立吗
-- 适用任何问题，对抗"初始假设锁定"
 
 ### 2. 苏格拉底提问
 选择适用的追问：
