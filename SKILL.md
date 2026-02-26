@@ -43,7 +43,7 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 - **评估当下是否需要搜索**：遇到不确定的信息就搜索，遵循自然的"我不确定，所以要查"
 - **如对问题有疑问**: 立即使用 AskUserQuestion 工具提问
 
-### 1.5 假设检查
+### 1.4 假设检查
 
 **第一轮思考后，必须列出关键假设，并问"这些假设都对吗？"**
 
