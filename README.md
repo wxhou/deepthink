@@ -14,6 +14,10 @@ This skill triggers intelligent, adaptive reasoning. It automatically detects qu
 - **Adaptive Output** - Not every question needs full protocol
 - **Selective Self-Questioning** - Only relevant questions
 
+## Prerequisites
+
+This skill leverages the **sequentialthinking MCP** server (built into Claude Code) to structure the reasoning process. No additional installation is required for this dependency.
+
 ## Installation
 
 ### Method 1: Clone to skills directory
