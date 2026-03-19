@@ -111,7 +111,7 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 - **Observe**: 看工具返回的结果
 - **Reason**: 基于结果继续推理
 
-- **Never guess**: 不确定的信息先搜索验证
+- **Never guess**: 不确定的信息先搜索验证(2026年)
 - **工具返回后**: 基于新信息重新验证
 
 ---
