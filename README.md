@@ -116,7 +116,23 @@ cp -r deepthink ~/.claude/skills/deepthink-workspace/skill-snapshot/
 # 3. Compare outputs: new should beat baseline on quick mode speed
 ```
 
+## File Structure
+
+```
+deepthink/
+├── SKILL.md           # Entry point with auto language detection
+├── references/
+│   ├── zh.md          # Chinese version (中文版)
+│   └── en.md          # English version
+├── evals/
+│   └── evals.json     # 12 test cases
+└── scripts/
+    └── run_evals.py   # Test runner
+```
+
+**Language Detection**: Automatically detects from user's prompt — Chinese characters → `references/zh.md`, otherwise → `references/en.md`.
+
 ## Version
 
-**Version**: 4.0.0
+**Version**: 5.0.0
 **Author**: wxhou
