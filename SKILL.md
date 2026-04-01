@@ -1,6 +1,6 @@
 ---
 name: deepthink
-description: Use when user asks with /deepthink prefix, or wants deep analysis. For complex reasoning, multi-step analysis, architecture decisions, debugging, or research — NOT for simple factual questions (those get direct answers). Automatically adapts depth: simple → quick answer, complex → full structured reasoning.
+description: "Use when user asks with /deepthink prefix, or wants deep analysis. For complex reasoning, multi-step analysis, architecture decisions, debugging, or research — NOT for simple factual questions (those get direct answers). Automatically adapts depth: simple → quick answer, complex → full structured reasoning."
 ---
 
 # /deepthink - Smart Deep Thinking Skill
