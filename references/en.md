@@ -100,6 +100,7 @@ Before output, confirm:
 - Arguments supported by evidence (source or reasoning)?
 - Iteration completed (if needed)?
 - If anything is missing, complete it before outputting
+- **Concise over complete**: Don't pad structure — users want clear answers, not boilerplate
 
 **Subagent Dispatch**: If any condition met, dispatch subagent for independent exploration then consolidate:
 - Code writing/debugging/execution verification
@@ -122,8 +123,8 @@ When encountering uncertain information, naturally think "I'm not sure, let me c
 - **Observe**: Check results
 - **Reason**: Re-reason based on results
 
-- **Never guess**: Verify uncertain info before stating
-- **After tool returns**: Re-verify based on new information
+- **Never guess**: Verify uncertain info before stating. Do not say "it needs a few rounds" or "roughly how long" — no time/step estimates.
+- **After tool returns**: Re-verify based on new information.
 
 ---
 
