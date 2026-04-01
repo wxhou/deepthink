@@ -103,5 +103,20 @@ First, assess whether the question needs deep analysis:
 
 ---
 
-**Version**: 3.0.0
+## Testing
+
+Run evals to compare skill versions:
+```bash
+# 1. Snapshot current skill as baseline
+cp -r deepthink ~/.claude/skills/deepthink-workspace/skill-snapshot/
+
+# 2. Edit skill, then run evals (use skill-creator workflow)
+# Evals are in evals/evals.json — 12 test cases covering quick/medium/high complexity
+
+# 3. Compare outputs: new should beat baseline on quick mode speed
+```
+
+## Version
+
+**Version**: 4.0.0
 **Author**: wxhou

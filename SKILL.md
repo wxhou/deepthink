@@ -1,6 +1,6 @@
 ---
 name: deepthink
-description: Use when user asks with /deepthink prefix, or wants deep analysis - triggers adaptive structured reasoning with automatic complexity detection. Uses effort-based depth control (low/medium/high) similar to Claude's adaptive thinking mechanism.
+description: Use when user asks with /deepthink prefix, or wants deep analysis. For complex reasoning, multi-step analysis, architecture decisions, debugging, or research — NOT for simple factual questions (those get direct answers). Automatically adapts depth: simple → quick answer, complex → full structured reasoning.
 ---
 
 # /deepthink - Smart Deep Thinking Skill
@@ -12,10 +12,18 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 
 ---
 
-## Core Protocol
+## Quick Mode Check
 
-> **Note**: Use **sequentialthinking MCP** to structure the reasoning process.
-> Inspired by Claude's adaptive thinking: automatically detect complexity and adjust reasoning depth.
+**先判断**：能用一句话直接回答吗？
+- **能** → 1-3句话直接答，停止。不用任何结构。
+- **不能** → 进入 Core Protocol。
+
+简单例子：事实查询、yes/no、数计算、看代码片段解释其作用、帮我理解这个概念。
+复杂例子：trade-offs评估、多步分析、架构决策、调试推理。复杂例子：trade-offs评估、多步分析、架构决策、调试。
+
+---
+
+> **Note**: Use **sequentialthinking MCP** to structure reasoning.
 
 ### 1. 问题拆解
 
@@ -26,20 +34,20 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 - 设定目标置信度 (High/Medium/Low)
 
 **复杂度评估（Effort级别）**：
-根据问题类型动态评估所需的思考深度
 
 | Effort级别 | 问题特征 | 思考轮次 |
 |-----------|---------|---------|
-| **low** | 简单事实查询、数学推导、单一维度分析 | 2-3轮 |
+| **low** | 单一维度分析、少量假设、无需外部搜索 | 2-3轮 |
 | **medium** | 需要多角度分析、有模糊性、可能需要搜索 | 5-6轮 |
 | **high** | 复杂推理、多系统交互、需要深度论证 | 7-9轮 |
+
+**注意**：简单事实查询不属于以上任何级别——在 Quick Mode Check 阶段已直接回答，不会进入复杂度评估。
 
 **复杂度判断规则**：
 - 是否需要外部信息搜索？→ +1级，且**必须进行搜索验证**
 - 是否涉及多个子问题？→ +1级
 - 是否有道德/伦理/价值判断？→ +1级
 - 是否是纯逻辑/数学问题？→ -1级（可简化）
-- 是否是简单事实查询？→ 直接回答，不启动deepthink
 
 **搜索和提问规则**：
 - **确认时间**：以系统 currentDate 为准，不凭记忆假设
@@ -61,13 +69,11 @@ description: Use when user asks with /deepthink prefix, or wants deep analysis -
 ### 3. 多层次分析
 对每个子问题循环执行：
 
-- **Tree of Thoughts (ToT)**: 复杂问题先探索2-3条推理路径，比较后再深入
+- **ToT（强制）**: 复杂问题（high effort）**必须**先探索2-3条推理路径，比较后再深入。不能跳过直接给答案。
 - **理解**: 用自己的话重述，列出假设和边界
 - **规划**: 头脑风暴N个策略，评估优缺点
 - **执行**: 步步为营，需要外部信息→立即搜索验证
-- **验证**: 检查逻辑一致性，寻找矛盾，测试边界
-- **假设验证**: 列出关键假设，通过迭代自行验证假设是否成立
-- **证据支撑**: 每轮论证需有信息源或推理依据支撑，避免空泛推演
+- **验证**（每轮都要做）: 检查逻辑一致性，寻找矛盾，测试边界——不要等到最后才验证，边分析边验证
 
 ### 4. 验证
 根据问题类型选择验证方式：

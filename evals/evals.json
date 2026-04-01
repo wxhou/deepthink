@@ -1,0 +1,77 @@
+{
+  "skill_name": "deepthink",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "deepthink: 我们公司考虑从微服务架构迁移到模块化单体。团队有12个人，分成4个小组。分析下迁移的利弊，给出建议。考虑：部署复杂度、性能、运维开销、团队结构。",
+      "expected_output": "应触发 deep mode，执行完整流程：ToT多路径探索、验证（反思/第一性原理）、迭代、输出包含核心问题/关键假设/结论/置信度。",
+      "type": "complex"
+    },
+    {
+      "id": 1,
+      "prompt": "deepthink: 今天周几？",
+      "expected_output": "应触发 quick mode，1-3句话直接回答日期，不启动完整结构化协议。",
+      "type": "quick"
+    },
+    {
+      "id": 2,
+      "prompt": "deepthink: 这段代码是做什么的？fn: const debounce = (fn, ms) => { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), ms); }; };",
+      "expected_output": "应触发 quick mode，1-3句话解释代码作用，不启动完整结构化协议。",
+      "type": "quick"
+    },
+    {
+      "id": 3,
+      "prompt": "deepthink: 我们团队有10个后端开发，需要选一个新的主要数据库。是选PostgreSQL还是MongoDB？请分析两种方案的优劣和适用场景，给出建议。团队技术栈：Node.js + Kubernetes。",
+      "expected_output": "应触发 medium mode，多角度 pros/cons 分析，结构化决策框架，输出置信度。",
+      "type": "decision"
+    },
+    {
+      "id": 4,
+      "prompt": "deepthink: 我应该用 Redis 吗？",
+      "expected_output": "应触发 quick mode，给出条件性直接回答（如：取决于你的场景），1-3句话。",
+      "type": "quick"
+    },
+    {
+      "id": 5,
+      "prompt": "deepthink: 999 * 888 = ?",
+      "expected_output": "应触发 quick mode，直接给出答案 887112，1句话。",
+      "type": "quick"
+    },
+    {
+      "id": 6,
+      "prompt": "deepthink: 什么是 RESTful API？",
+      "expected_output": "应触发 quick mode，1-3句话定义核心概念，不启动完整结构化协议。",
+      "type": "quick"
+    },
+    {
+      "id": 7,
+      "prompt": "deepthink: Python 代码报错 TypeError: 'NoneType' object has no attribute 'split'，可能的原因是什么？",
+      "expected_output": "应触发 medium mode，多角度列举可能原因，结构化排查思路。",
+      "type": "debug"
+    },
+    {
+      "id": 8,
+      "prompt": "deepthink: 我们团队 5 个人，应该选 JWT 还是 Session 做用户认证？分析各方案优缺点和适用场景。",
+      "expected_output": "应触发 medium mode，pros/cons 对比，决策树或适用场景分析。",
+      "type": "tradeoff"
+    },
+    {
+      "id": 9,
+      "prompt": "deepthink: 设计一个日均 10 亿请求的系统架构，需要考虑哪些核心组件？流量特征：读多写少，用户分布全球。",
+      "expected_output": "应触发 high mode，多层架构设计，关键组件分析，成本/性能权衡。",
+      "type": "arch"
+    },
+    {
+      "id": 10,
+      "prompt": "deepthink: 解释下什么是数据库索引，以及它的原理和使用时的注意事项。",
+      "expected_output": "应触发 medium mode，概念解释 + 原理 + 注意事项，结构化输出。",
+      "type": "concept"
+    },
+    {
+      "id": 11,
+      "prompt": "deepthink: 分析从单体应用迁移到微服务架构需要考虑的关键因素，包括：服务拆分策略、数据管理、运维复杂度、团队结构变化。",
+      "expected_output": "应触发 high mode，多维度深度分析，每个维度都有充分论证和验证。",
+      "type": "complex"
+    }
+  ]
+}
