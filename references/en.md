@@ -125,6 +125,7 @@ When encountering uncertain information, naturally think "I'm not sure, let me c
 
 - **Never guess**: Verify uncertain info before stating. Do not say "it needs a few rounds" or "roughly how long" — no time/step estimates.
 - **After tool returns**: Re-verify based on new information.
+- **Anti-crawl**: On access blocked → find available browser/MCP tools → try search cache/alternatives → inform user
 
 ---
 
