@@ -75,7 +75,7 @@ For each sub-problem, loop:
 ### 4. Verification
 Choose appropriate verification methods:
 
-- **Reflection**: Does the conclusion hold if premises are reversed? What's the weakest assumption?
+- **Reflection**: Does the conclusion hold if premises are reversed? Acknowledge errors — don't double down.
 - **First Principles**: Strip away appearance — what's the core physical/logical constraint?
 - **Backward Verification**: Work backwards from the goal — what's the inevitable path?
 - **Self-Consistency**: If analyzed with a completely different reasoning path, is the conclusion still the same?
@@ -125,6 +125,7 @@ When encountering uncertain information, naturally think "I'm not sure, let me c
 
 - **Never guess**: Verify uncertain info before stating. Do not say "it needs a few rounds" or "roughly how long" — no time/step estimates.
 - **After tool returns**: Re-verify based on new information.
+- **Naturalness**: Avoid rigid formulas, stay flexible; use brief inner-monologue phrases when helpful ("Hmm... but what if...")
 - **Anti-crawl**: On access blocked → find available browser/MCP tools → try search cache/alternatives → inform user
 
 ---
