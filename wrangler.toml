@@ -1,0 +1,12 @@
+# Wrangler 配置 —— 锁定 deepthink 项目
+#
+# ⚠️ DO NOT 用 wrangler.toml 的 [name] 字段 —— 那只对 `wrangler deploy` (Workers) 生效
+# 不影响 `wrangler pages deploy`。必须用脚本 ./scripts/deploy-site.sh,它硬编码了
+# --project-name=deepthink。
+
+# 真实部署见 ./scripts/deploy-site.sh
+# 历史事故:曾误覆盖 wxhou.pages.dev。已锁定:不再用 wxhou 项目名 deploy。
+
+name = "deepthink-locked"
+compatibility_date = "2026-09-18"
+pages_build_output_dir = "site"
