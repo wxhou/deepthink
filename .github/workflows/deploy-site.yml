@@ -1,0 +1,70 @@
+# 自动部署 deepthink 宣传页到 Cloudflare Pages
+#
+# 触发:push 到 main,且改动 site/ 路径(也支持手动 dispatch)
+# 安全:
+#   - 复用 scripts/deploy-site.sh(wxhou 黑名单阻断)
+#   - 只在 site/ 目录有改动时运行(避免每次 push 都 deploy)
+#   - 用 GitHub encrypted secret CLOUDFLARE_API_TOKEN(用户手动创建)
+#
+# 用户首次配置:
+#   1. Cloudflare Dashboard → My Profile → API Tokens → Create Token
+#      → Edit Cloudflare Pages template → Permissions: Pages:Edit
+#      → Account Resources: <your account>
+#      → 创建后复制 token
+#   2. GitHub repo → Settings → Secrets and variables → Actions
+#      → New repository secret:  CLOUDFLARE_API_TOKEN = <token>
+#   3. 完成。以后每次改 site/index.html 推 main,自动部署。
+
+name: Deploy site to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/deploy-site.sh"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify blocked name guard
+        run: |
+          bash ./scripts/deploy-site.sh --dry-run
+
+      - name: Deploy via wrangler
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # --project-name=deepthink 在脚本里硬编码(wxhou 黑名单已阻断)
+          bash ./scripts/deploy-site.sh
+
+      - name: Verify deployment
+        run: |
+          # 部署后探活,失败不阻塞(用户可手动验证)
+          sleep 10
+          for i in 1 2 3; do
+            if curl -fsSL -o /dev/null -w "%{http_code}\n" https://deepthink.wxhou.workers.dev/; then
+              echo "✅ Deployment verified"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "⚠️ Verification probe failed; deployment may still be propagating"
+          exit 0
