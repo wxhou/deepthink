@@ -1,3 +1,7 @@
+# DeepThink 智能深度思考
+
+> **平台说明**: 这是平台无关的权威源。各工具专属包装(Claude Code SKILL.md、Cursor .mdc 等)在 `adapters/` 下。**修改协议请编辑本文件,再跑生成器同步到所有工具**。
+
 ## 何时使用
 - 用户调用 skill(根据平台不同:`/deepthink`、`deepthink: ` 前缀、`@deepthink` 或 always-on 规则)
 - 复杂问题求解、研究、分步骤思考

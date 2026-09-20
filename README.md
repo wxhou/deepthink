@@ -1,138 +1,94 @@
-# deepthink
+# DeepThink
 
-Smart deep thinking skill for Claude Code - automatically adapts depth based on question complexity.
+[![skills.sh](https://skills.sh/b/wxhou/deepthink)](https://skills.sh/wxhou/deepthink)
 
-## What is this?
+Adaptive deep reasoning skill — auto-detects question complexity and adjusts analysis depth. Quick mode for simple queries, full protocol (ToT / Socratic / verification / iteration) for complex problems. Bilingual (auto Chinese/English).
 
-This skill triggers intelligent, adaptive reasoning. It automatically detects question complexity and chooses the appropriate response depth - quick answers for simple questions, deep analysis for complex ones.
-
-## Key Features
-
-- **Automatic Complexity Detection** - Smart mode selection
-- **Quick Mode** - Direct answers for simple questions
-- **Deep Mode** - Full analysis for complex problems
-- **Adaptive Output** - Not every question needs full protocol
-- **Selective Self-Questioning** - Only relevant questions
-
-## Installation
-
-### Method 1: Clone to skills directory
+## Install
 
 ```bash
-git clone https://github.com/wxhou/deepthink.git ~/.claude/skills/deepthink
+npx skills add wxhou/deepthink
 ```
 
-### Method 2: Using Plugin
-
-```bash
-/plugin install deepthink-marketplace
-```
+Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Gemini, Cline, Roo, Zed, VS Code and 20+ other agents listed at [skills.sh](https://skills.sh).
 
 ## Usage
 
 ```bash
-/deepthink Your question here
+# Claude Code
+/deepthink 选择 PostgreSQL 还是 MongoDB?
+
+# Cursor / Codex / Copilot / others
+deepthink: 选择 PostgreSQL 还是 MongoDB?
 ```
 
 ## How It Works
 
-### Step 1: Complexity Assessment
-First, assess whether the question needs deep analysis:
+### Quick Mode (default for simple queries)
+If the question is answerable in one sentence → 1-3 sentence direct answer, stop.
 
-**Quick Mode (skip full protocol):**
-- Simple facts ("What day is today?")
-- Confirmations ("Does this file exist?")
-- Single tasks ("Run npm install")
-- Yes/No questions
+### Deep Mode (default for complex queries)
+1. **Problem Decomposition + Assumption Statement** — mandatory list of key assumptions with self-verification (✅ holds / ❌ fails / ❓ pending)
+2. **Effort Level** — `low` (2-3 rounds) / `medium` (5-6) / `high` (7-9), adjusted by complexity rules
+3. **Socratic Questioning** — Clarify / Assumptions / Evidence / Counterexamples / Alternatives / Consequences
+4. **Multi-Level Analysis** — Tree of Thoughts (mandatory for high effort) → Understand → Plan → Execute → Verify
+5. **Verification** — Reflection / First Principles / Backward / Self-Consistency
+6. **Iteration** — if Low/Medium confidence or multi-subsystem
+7. **Completeness Check** — confirm all steps before output
 
-**Deep Mode (follow protocol):**
-- Multiple factors to consider
-- Trade-offs to evaluate
-- No clear "right answer"
-- Requires research
-- Decision-making
+## Output Format
 
-### Step 2: Adaptive Response
-
-| Question Type | Response Style |
-|--------------|---------------|
-| Simple fact | Direct answer |
-| How-to guide | Steps + key points |
-| Decision | Pros/cons + recommendation |
-| Analysis | Core insight + evidence |
-
-## Output Examples
-
-### Quick Mode
 ```
-/deepthink 今天周几？
-→ 今天是周五。
-```
-
-### Deep Mode
-```
-/deepthink 应该选择 PostgreSQL 还是 MongoDB？
-
-## 分析
-
-### 核心问题
-数据库选型需要根据场景评估
-
-### 关键分析
-- PostgreSQL: 强一致性、复杂查询、JSON支持
-- MongoDB: 灵活schema、高写入、文档存储
-
-### 结论
-根据场景选择：
-- 金融/交易 → PostgreSQL
-- 内容/日志 → MongoDB
-
-### 置信度: Medium
-```
-
-## FAQ
-
-### Q: Does every question need full analysis?
-**A:** No! The skill automatically detects complexity. Simple questions get quick answers.
-
-### Q: What if I'm not sure?
-**A:** When uncertain, choose Deep Mode to be safe.
-
-### Q: Do I need sequentialthinking?
-**A:** It's built into Claude Code - no installation needed.
-
 ---
+## 🤔 DeepThink Analysis
 
-## Testing
+### Core Problem
+[1-sentence summary of the real question]
 
-Run evals to compare skill versions:
-```bash
-# 1. Snapshot current skill as baseline
-cp -r deepthink ~/.claude/skills/deepthink-workspace/skill-snapshot/
+### Key Assumptions
+[List with ✅/❌/❓]
 
-# 2. Edit skill, then run evals (use skill-creator workflow)
-# Evals are in evals/evals.json — 12 test cases covering quick/medium/high complexity
+### Conclusion
+[Final answer]
 
-# 3. Compare outputs: new should beat baseline on quick mode speed
+### One-Sentence Summary
+[Core recommendation]
+
+### Confidence: [High/Medium/Low]
+---
 ```
 
-## File Structure
+## Repository Layout
 
 ```
 deepthink/
-├── SKILL.md           # Entry point with auto language detection
-├── references/
-│   ├── zh.md          # Chinese version (中文版)
-│   └── en.md          # English version
+├── SKILL.md             # Skill entry (YAML frontmatter + usage)
+├── core/                # Canonical protocol source (platform-agnostic)
+│   ├── protocol.md      # English
+│   └── protocol.zh.md   # Chinese
+├── references/          # Same content as core/, kept for Claude Code compat
+│   ├── en.md
+│   └── zh.md
 ├── evals/
-│   └── evals.json     # 12 test cases
+│   └── evals.json       # 12 test cases (quick/medium/high)
 └── scripts/
-    └── run_evals.py   # Test runner
+    └── run_evals.py     # Eval runner
 ```
 
-**Language Detection**: Automatically detects from user's prompt — Chinese characters → `references/zh.md`, otherwise → `references/en.md`.
+## Evals
+
+12 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types:
+
+```bash
+python scripts/run_evals.py --iter 1
+```
+
+Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`.
+
+## License
+
+MIT
 
 ## Version
 
-**Version**: 5.0.0
-**Author**: wxhou
+5.1.0 — published to skills.sh
