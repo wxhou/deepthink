@@ -13,6 +13,7 @@ set -euo pipefail
 
 PROJECT_NAME="deepthink"   # ⚠️ 不要改 —— URL 是 deepthink.wxhou.workers.dev
 SOURCE_DIR="site"          # 静态资源目录
+WRANGLER_VERSION="4.151.3" # 钉死版本:latest 会随上游发版改变部署行为,部署不可复现
 
 # 校验:阻断 wxhou —— 这是 CLAUDE.md 中唯一永久禁止的项目名(出过覆盖事故)
 # 其他现有项目(如 openspec-playwright / wechat-markdown 等)不在此拦截,
@@ -38,11 +39,11 @@ echo ""
 
 if [ "${1:-}" = "--dry-run" ]; then
   echo "✅ Dry run: would run:"
-  echo "   npx --yes wrangler@latest pages deploy $SOURCE_DIR/ --project-name=$PROJECT_NAME --commit-dirty=true"
+  echo "   npx --yes wrangler@${WRANGLER_VERSION} pages deploy $SOURCE_DIR/ --project-name=$PROJECT_NAME --commit-dirty=true"
   exit 0
 fi
 
 # 主命令
-exec npx --yes wrangler@latest pages deploy "$SOURCE_DIR/" \
+exec npx --yes wrangler@${WRANGLER_VERSION} pages deploy "$SOURCE_DIR/" \
   --project-name="$PROJECT_NAME" \
   --commit-dirty=true
