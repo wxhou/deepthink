@@ -23,7 +23,7 @@ Read the user's prompt:
 
 The full protocol lives in `core/`. Read the appropriate language version above and follow it. Key sections:
 
-1. **Quick Mode Check** — if answerable in one sentence, stop after 1-3 sentences
+1. **Quick Mode Check** — if answerable in one sentence, answer in 1-3 plain sentences and stop — no template, no section headers
 2. **Problem Decomposition + Assumption Statement** — mandatory assumption list
 3. **Socratic Questioning** — clarify, assumptions, evidence, counterexamples, alternatives, consequences
 4. **Multi-Level Analysis** — Tree of Thoughts (mandatory for high effort) → Understand → Plan → Execute → Verify
@@ -32,6 +32,8 @@ The full protocol lives in `core/`. Read the appropriate language version above 
 7. **Completeness Check** — before output, confirm all steps done
 
 ## Output Format
+
+**Deep-mode answers only.** Quick-mode answers stay plain — 1-3 sentences, never wrapped in this template.
 
 ```
 ---

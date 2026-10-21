@@ -12,7 +12,7 @@
 ## Quick Mode Check
 
 **Ask first: Can this be answered in one sentence?**
-- **Yes** → Answer in 1-3 sentences, stop. No protocol needed.
+- **Yes** → Answer in 1-3 plain sentences, stop. No protocol, no output template.
 - **No** → Proceed to Core Protocol.
 
 Simple examples: factual queries, yes/no questions, math calculations, explaining a code snippet, "What is X?"
@@ -140,6 +140,8 @@ When encountering uncertain information, naturally think "I'm not sure, let me c
 ---
 
 ## Output Format
+
+**Deep mode only.** Quick-mode answers are plain 1-3 sentences — never wrap them in this template.
 
 ```
 ---
