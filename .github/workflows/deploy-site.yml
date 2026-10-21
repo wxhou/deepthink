@@ -14,7 +14,7 @@
 #      → New repository secret:  CLOUDFLARE_API_TOKEN = <token>
 #   3. 完成。以后每次改 site/index.html 推 main,自动部署。
 #
-# 线上 URL: https://deepthink-boa.pages.dev
+# 线上 URL: https://deepthinking.pages.dev
 
 name: Deploy site to Cloudflare Pages
 
@@ -71,7 +71,7 @@ jobs:
           # 部署后探活,失败不阻塞(用户可手动验证)
           sleep 10
           for i in 1 2 3; do
-            if curl -fsSL -o /dev/null -w "%{http_code}\n" https://deepthink-boa.pages.dev/; then
+            if curl -fsSL -o /dev/null -w "%{http_code}\n" https://deepthinking.pages.dev/; then
               echo "✅ Deployment verified"
               exit 0
             fi

@@ -10,8 +10,8 @@
 
 deepthink 宣传页部署目标:
 
-- 形态:Cloudflare Pages,项目 `deepthink`,静态目录 `site/`
-- URL: `https://deepthink-boa.pages.dev`(裸名 `deepthink.pages.dev` 已被占用,Cloudflare 分配的域名带 `-boa` 后缀)
+- 形态:Cloudflare Pages,项目 `deepthinking`,静态目录 `site/`
+- URL: `https://deepthinking.pages.dev`(部署项目名与 skill 名 `deepthink` 有意区分,为拿到干净域名)
 - 命令: `./scripts/deploy-site.sh`(硬编码项目名与 wrangler 版本,内置 wxhou 黑名单和 wrangler.toml 一致性校验)
 
 ## 通用部署守则

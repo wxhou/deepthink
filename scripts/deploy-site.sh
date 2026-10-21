@@ -3,8 +3,10 @@
 #
 # 用法: ./scripts/deploy-site.sh [--dry-run]
 #
-# 部署形态:Cloudflare Pages,项目名 deepthink,静态目录 site/。
-# 线上 URL: https://deepthink-boa.pages.dev
+# 部署形态:Cloudflare Pages,项目名 deepthinking,静态目录 site/。
+# 线上 URL: https://deepthinking.pages.dev
+#
+# 注意:部署项目名 deepthinking 与 skill 名 deepthink 有意区分(为拿到干净域名)。
 #
 # 历史事故:曾用 --project-name=wxhou 误覆盖用户 wxhou.pages.dev。
 # wxhou 永久禁止作为部署目标。
@@ -13,9 +15,9 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."   # 保证能读到仓库根的 wrangler.toml
 
-TARGET_NAME="deepthink"    # ⚠️ 不要改 —— Pages 项目名
+TARGET_NAME="deepthinking"    # ⚠️ 不要改 —— Pages 项目名
 SOURCE_DIR="site"          # 静态资源目录
-PAGES_URL="https://deepthink-boa.pages.dev"  # 项目实际域名(裸名已被占用)
+PAGES_URL="https://deepthinking.pages.dev"  # 项目域名
 WRANGLER_VERSION="4.151.3" # 钉死版本:latest 会随上游发版改变部署行为,部署不可复现
 
 # 校验:阻断 wxhou —— 这是 CLAUDE.md 中唯一永久禁止的目标名(出过覆盖事故)
