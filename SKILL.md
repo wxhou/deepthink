@@ -16,12 +16,12 @@ version: 5.1.0
 ## Language Detection
 
 Read the user's prompt:
-- Contains Chinese characters (CJK) → load `references/zh.md`
-- Otherwise → load `references/en.md`
+- Contains Chinese characters (CJK) → load `core/protocol.zh.md`
+- Otherwise → load `core/protocol.en.md`
 
 ## Core Protocol
 
-The full protocol lives in `references/`. Read the appropriate language version above and follow it. Key sections:
+The full protocol lives in `core/`. Read the appropriate language version above and follow it. Key sections:
 
 1. **Quick Mode Check** — if answerable in one sentence, stop after 1-3 sentences
 2. **Problem Decomposition + Assumption Statement** — mandatory assumption list
@@ -49,4 +49,4 @@ The full protocol lives in `references/`. Read the appropriate language version 
 - **Claude Code**: Use `sequentialthinking` MCP if available; use `AskUserQuestion` for clarifications; `dispatch subagent` for parallel exploration
 - **Cursor / Copilot / Others**: Use whatever search/clarification tools the platform provides; the protocol's "conditioned" wording handles graceful degradation
 
-See `references/en.md` or `references/zh.md` for the canonical, platform-agnostic version.
+See `core/protocol.en.md` or `core/protocol.zh.md` for the canonical, platform-agnostic version.

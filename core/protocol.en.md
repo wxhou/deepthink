@@ -1,6 +1,6 @@
 # DeepThink Smart Deep Thinking
 
-> **Platform note**: This is the canonical, platform-agnostic protocol. Tool-specific wrappers (Claude Code SKILL.md, Cursor .mdc, etc.) live under `adapters/`. When in doubt, edit **this file** and regenerate.
+> **Source of truth**: This is the canonical, platform-agnostic protocol, loaded directly by `SKILL.md`. There are no per-platform copies — edit `protocol.en.md` and `protocol.zh.md` in place.
 
 ## When to Use
 - User invokes the skill (`/deepthink`, `deepthink: ` prefix, `@deepthink`, or always-on rule depending on platform)

@@ -24,8 +24,7 @@ deepthink 宣传页部署目标:
 
 ## 仓库结构
 
-- `core/` —— 权威协议源(平台无关)
-- `references/` —— Claude Code 向后兼容
+- `core/` —— 权威协议源(平台无关,`SKILL.md` 直接加载,无副本)
 - `site/` —— 宣传页(单文件 index.html)
 - `scripts/run_evals.py` —— 评测
 - `evals/evals.json` —— 12 条 evals + trigger 配置

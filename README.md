@@ -10,7 +10,14 @@ Adaptive deep reasoning skill — auto-detects question complexity and adjusts a
 npx skills add wxhou/deepthink
 ```
 
-Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Gemini, Cline, Roo, Zed, VS Code and 20+ other agents listed at [skills.sh](https://skills.sh).
+The CLI auto-detects installed agents and asks where to install. Useful flags:
+
+```bash
+npx skills add wxhou/deepthink -g               # global (~/.claude/skills/ etc.) instead of current project
+npx skills add wxhou/deepthink -a claude-code   # target one agent instead of interactive pick
+```
+
+Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Gemini, Cline, Roo, Zed, VS Code and 20+ other agents listed at [skills.sh](https://skills.sh). The skill folder (`SKILL.md` + `core/`) is copied into each agent's skills directory.
 
 ## Usage
 
@@ -63,12 +70,9 @@ If the question is answerable in one sentence → 1-3 sentence direct answer, st
 ```
 deepthink/
 ├── SKILL.md             # Skill entry (YAML frontmatter + usage)
-├── core/                # Canonical protocol source (platform-agnostic)
-│   ├── protocol.md      # English
+├── core/                # Canonical protocol (loaded directly by SKILL.md)
+│   ├── protocol.en.md   # English
 │   └── protocol.zh.md   # Chinese
-├── references/          # Same content as core/, kept for Claude Code compat
-│   ├── en.md
-│   └── zh.md
 ├── evals/
 │   └── evals.json       # 12 test cases (quick/medium/high)
 └── scripts/
