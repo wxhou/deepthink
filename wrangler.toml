@@ -1,12 +1,13 @@
-# Wrangler 配置 —— 锁定 deepthink 项目
+# Wrangler 配置 —— deepthink 宣传页(Workers 静态资源)
 #
-# ⚠️ DO NOT 用 wrangler.toml 的 [name] 字段 —— 那只对 `wrangler deploy` (Workers) 生效
-# 不影响 `wrangler pages deploy`。必须用脚本 ./scripts/deploy-site.sh,它硬编码了
-# --project-name=deepthink。
+# 部署只通过 ./scripts/deploy-site.sh(硬编码目标名 + wrangler 版本 + wxhou 黑名单)。
+# 本项目不是 Cloudflare Pages —— 不要用 `wrangler pages deploy`。
+# 历史事故:曾误覆盖 wxhou.pages.dev。已锁定:wxhou 永不作为部署目标。
+#
+# 线上 URL: https://deepthink.wxhou.workers.dev
 
-# 真实部署见 ./scripts/deploy-site.sh
-# 历史事故:曾误覆盖 wxhou.pages.dev。已锁定:不再用 wxhou 项目名 deploy。
-
-name = "deepthink-locked"
+name = "deepthink"
 compatibility_date = "2026-09-18"
-pages_build_output_dir = "site"
+
+[assets]
+directory = "./site"
