@@ -52,8 +52,17 @@ def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, tr
     except subprocess.TimeoutExpired:
         # deep 模式跑满完整协议(ToT/验证/迭代)可能远超 5 分钟;
         # 超时只标记该条失败,不能让整个批次崩掉
+        (output_dir / "agent.log").write_text(
+            f"TIMEOUT after {timeout}s\n", encoding="utf-8"
+        )
         print(f"  [{agent_id}] TIMEOUT after {timeout}s")
         return False
+
+    # 落盘 agent 的原始输出,否则失败时没有任何诊断线索
+    (output_dir / "agent.log").write_text(
+        f"exit={result.returncode}\n\n--- stdout ---\n{result.stdout}\n--- stderr ---\n{result.stderr}\n",
+        encoding="utf-8",
+    )
 
     print(f"  [{agent_id}] exit={result.returncode} stdout={len(result.stdout)} chars")
     return result.returncode == 0
