@@ -1,7 +1,7 @@
 ---
 name: deepthink
 description: "Adaptive deep reasoning skill that automatically adjusts analysis depth based on question complexity. Uses sequential thinking, multi-path tree-of-thought exploration, Socratic questioning, first-principles verification, and iterative validation to produce high-confidence answers. Quick mode for simple queries, deep mode for complex problems. Bilingual: auto-detects Chinese vs English from prompt."
-version: 5.1.0
+version: 5.2.0
 ---
 
 # DeepThink

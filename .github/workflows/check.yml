@@ -1,0 +1,31 @@
+# 仓库一致性检查 —— 零 API 成本,不调用模型
+#
+# 检查:版本号单一来源、SKILL.md 引用路径存在、evals.json 结构合法、
+#       无 references/ 或 adapters/ 残留。
+# 需要跑真实 evals 请本地执行 scripts/run_evals.py(会产生模型调用费用)。
+
+name: Check consistency
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile scripts
+        run: python3 -m py_compile scripts/*.py
+
+      - name: Consistency checks
+        run: python3 scripts/check_consistency.py

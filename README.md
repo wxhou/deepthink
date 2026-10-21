@@ -96,4 +96,4 @@ MIT
 
 ## Version
 
-5.1.0 — published to skills.sh
+5.2.0 — published to skills.sh
