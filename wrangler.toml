@@ -1,13 +1,11 @@
-# Wrangler 配置 —— deepthink 宣传页(Workers 静态资源)
+# Wrangler 配置 —— deepthink 宣传页(Cloudflare Pages)
 #
-# 部署只通过 ./scripts/deploy-site.sh(硬编码目标名 + wrangler 版本 + wxhou 黑名单)。
-# 本项目不是 Cloudflare Pages —— 不要用 `wrangler pages deploy`。
+# 部署只通过 ./scripts/deploy-site.sh(硬编码项目名 + wrangler 版本 + wxhou 黑名单)。
 # 历史事故:曾误覆盖 wxhou.pages.dev。已锁定:wxhou 永不作为部署目标。
 #
-# 线上 URL: https://deepthink.wxhou.workers.dev
+# 线上 URL: https://deepthink-boa.pages.dev
+# 注意:裸名 deepthink.pages.dev 已被占用,Cloudflare 为项目分配的域名带 -boa 后缀。
 
 name = "deepthink"
 compatibility_date = "2026-09-18"
-
-[assets]
-directory = "./site"
+pages_build_output_dir = "./site"

@@ -3,8 +3,8 @@
 #
 # 用法: ./scripts/deploy-site.sh [--dry-run]
 #
-# 部署形态:Cloudflare Workers 静态资源(assets),由仓库根 wrangler.toml 的
-# [assets] 指向 site/。不是 Cloudflare Pages。
+# 部署形态:Cloudflare Pages,项目名 deepthink,静态目录 site/。
+# 线上 URL: https://deepthink-boa.pages.dev
 #
 # 历史事故:曾用 --project-name=wxhou 误覆盖用户 wxhou.pages.dev。
 # wxhou 永久禁止作为部署目标。
@@ -13,8 +13,9 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."   # 保证能读到仓库根的 wrangler.toml
 
-TARGET_NAME="deepthink"    # ⚠️ 不要改 —— URL 是 deepthink.wxhou.workers.dev
-SOURCE_DIR="site"          # 静态资源目录(wrangler.toml 的 [assets] 也指向这里)
+TARGET_NAME="deepthink"    # ⚠️ 不要改 —— Pages 项目名
+SOURCE_DIR="site"          # 静态资源目录
+PAGES_URL="https://deepthink-boa.pages.dev"  # 项目实际域名(裸名已被占用)
 WRANGLER_VERSION="4.151.3" # 钉死版本:latest 会随上游发版改变部署行为,部署不可复现
 
 # 校验:阻断 wxhou —— 这是 CLAUDE.md 中唯一永久禁止的目标名(出过覆盖事故)
@@ -40,15 +41,17 @@ if [ "$CONFIG_NAME" != "$TARGET_NAME" ]; then
   exit 1
 fi
 
-echo "▶ Deploying $SOURCE_DIR/ → Workers script '$TARGET_NAME'"
-echo "  Target URL: https://${TARGET_NAME}.wxhou.workers.dev"
+echo "▶ Deploying $SOURCE_DIR/ → Cloudflare Pages project '$TARGET_NAME'"
+echo "  Target URL: ${PAGES_URL}"
 echo ""
 
 if [ "${1:-}" = "--dry-run" ]; then
   echo "✅ Dry run: would run:"
-  echo "   npx --yes wrangler@${WRANGLER_VERSION} deploy"
+  echo "   npx --yes wrangler@${WRANGLER_VERSION} pages deploy $SOURCE_DIR/ --project-name=$TARGET_NAME --commit-dirty=true"
   exit 0
 fi
 
-# 主命令:读 wrangler.toml 的 name 与 [assets],不需要也不接受 --project-name
-exec npx --yes wrangler@${WRANGLER_VERSION} deploy
+# 主命令:显式带 --project-name,不依赖 wrangler.toml 默认值
+exec npx --yes wrangler@${WRANGLER_VERSION} pages deploy "$SOURCE_DIR/" \
+  --project-name="$TARGET_NAME" \
+  --commit-dirty=true

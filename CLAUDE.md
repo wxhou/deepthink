@@ -10,9 +10,9 @@
 
 deepthink 宣传页部署目标:
 
-- 形态:Cloudflare Workers 静态资源(assets),`wrangler.toml` 的 `[assets]` 指向 `site/`
-- 名称:`deepthink`(URL: `https://deepthink.wxhou.workers.dev`)
-- 命令: `./scripts/deploy-site.sh`(硬编码目标名与 wrangler 版本,内置 wxhou 黑名单和 wrangler.toml 一致性校验)
+- 形态:Cloudflare Pages,项目 `deepthink`,静态目录 `site/`
+- URL: `https://deepthink-boa.pages.dev`(裸名 `deepthink.pages.dev` 已被占用,Cloudflare 分配的域名带 `-boa` 后缀)
+- 命令: `./scripts/deploy-site.sh`(硬编码项目名与 wrangler 版本,内置 wxhou 黑名单和 wrangler.toml 一致性校验)
 
 ## 通用部署守则
 
