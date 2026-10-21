@@ -8,6 +8,7 @@
 Usage:
     python scripts/grade_evals.py --iter 1            # 判 iteration-1
     python scripts/grade_evals.py --dir /some/dir     # 判任意含 eval-*/with_skill/outputs/ 的目录
+    python scripts/grade_evals.py --iter 1 --only 4,5 # 只判指定 id
 """
 from __future__ import annotations
 
@@ -43,11 +44,16 @@ def main() -> int:
             iter_num = int(args[args.index("--iter") + 1])
         results_dir = PROJECT_ROOT.parent / "deepthink-workspace" / f"iteration-{iter_num}"
 
+    only = None
+    if "--only" in args:
+        only = {int(x) for x in args[args.index("--only") + 1].split(",")}
+
     cfg = json.loads(EVALS_FILE.read_text(encoding="utf-8"))
-    total = passed = 0
-    for item in cfg["evals"]:
+    items = [e for e in cfg["evals"] if only is None or e["id"] in only]
+    total = len(items)
+    passed = 0
+    for item in items:
         eid, etype = item["id"], item["type"]
-        total += 1
         out = results_dir / f"eval-{eid}-{etype}" / "with_skill" / "outputs" / "output.txt"
         if not out.exists():
             print(f"eval-{eid}-{etype}: FAIL (no output.txt at {out})")

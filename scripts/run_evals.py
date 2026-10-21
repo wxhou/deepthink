@@ -4,6 +4,7 @@
 Usage:
     python scripts/run_evals.py              # 跑 12 条 evals (claude_code agent)
     python scripts/run_evals.py --iter 0     # 跑第 N 轮(baseline 用 0)
+    python scripts/run_evals.py --only 4,5   # 只跑指定 id(迭代修复时用)
 """
 from __future__ import annotations
 
@@ -64,16 +65,22 @@ def main() -> int:
         idx = sys.argv.index("--iter") + 1
         iter_num = int(sys.argv[idx])
 
+    only = None
+    if "--only" in sys.argv:
+        idx = sys.argv.index("--only") + 1
+        only = {int(x) for x in sys.argv[idx].split(",")}
+
     cfg = load_evals()
     trigger = cfg.get("trigger", {}).get("prefix", "")  # 触发前缀以 evals.json 为准,不在代码里硬编码
     skill_path = PROJECT_ROOT
     workspace = PROJECT_ROOT.parent / "deepthink-workspace"
     iter_dir = workspace / f"iteration-{iter_num}"
 
-    print(f"Running {len(cfg['evals'])} evals (iteration {iter_num})")
+    evals = [e for e in cfg["evals"] if only is None or e["id"] in only]
+    print(f"Running {len(evals)} evals (iteration {iter_num})")
 
     completed = 0
-    for eval_item in cfg["evals"]:
+    for eval_item in evals:
         eid = eval_item["id"]
         prompt = eval_item["prompt"]
         etype = eval_item["type"]
@@ -85,7 +92,7 @@ def main() -> int:
         )
         completed += ok
 
-    print(f"\nDone: {completed}/{len(cfg['evals'])} evals completed. Results in {iter_dir}")
+    print(f"\nDone: {completed}/{len(evals)} evals completed. Results in {iter_dir}")
     print(f"To grade: python scripts/grade_evals.py --iter {iter_num}")
     return 0
 
