@@ -84,10 +84,11 @@ deepthink/
 12 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types:
 
 ```bash
-python scripts/run_evals.py --iter 1
+python scripts/run_evals.py --iter 1      # run all cases via claude CLI
+python scripts/grade_evals.py --iter 1    # grade outputs against assertions in evals.json
 ```
 
-Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`.
+Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`. Assertions are structural: `quick` prompts must answer directly (no DeepThink template), deeper modes must emit the template with key assumptions and confidence. The grader exits non-zero on any failure.
 
 ## License
 
