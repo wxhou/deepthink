@@ -95,8 +95,9 @@ def main() -> int:
         etype = eval_item["type"]
         d = iter_dir / f"eval-{eid}-{etype}" / "with_skill" / "outputs"
         print(f"Running eval-{eid} ({etype})...")
+        effective_trigger = eval_item.get("trigger") or trigger  # 每条可覆盖触发形式(/deepthink、@deepthink)
         ok = run_agent(
-            skill_path, prompt, d, f"eval-{eid}-claude_code", trigger,
+            skill_path, prompt, d, f"eval-{eid}-claude_code", effective_trigger,
             timeout=300 if etype == "quick" else 900,  # deep 模式需要更长上限
         )
         completed += ok

@@ -81,7 +81,7 @@ deepthink/
 
 ## Evals
 
-12 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types:
+16 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types, including English prompts and all three trigger forms (`deepthink: `, `/deepthink `, `@deepthink `):
 
 ```bash
 python scripts/run_evals.py --iter 1      # run all cases via claude CLI
