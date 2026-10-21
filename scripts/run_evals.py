@@ -23,17 +23,20 @@ def load_evals() -> dict:
         return json.load(f)
 
 
-def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, timeout: int = 300) -> bool:
+def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, trigger: str, timeout: int = 300) -> bool:
     """通过 Claude Code CLI 跑单条 eval。"""
     if not shutil.which("claude"):
         print(f"  [{agent_id}] claude CLI not found, skipping")
         return False
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    trigger = "deepthink: "  # 与 evals.json trigger.prefix 一致
     full_prompt = f"{trigger}{prompt}" if trigger else prompt
+    # 注意: claude CLI 没有 -A 选项(旧写法直接报 unknown option),授权目录用 --add-dir;
+    # skill 目录和输出目录都要加,否则 headless 模式下读 SKILL.md / 写 output.txt 会被拒。
     cmd = [
-        "claude", "-A", str(skill_path),
+        "claude",
+        "--add-dir", str(skill_path),
+        "--add-dir", str(output_dir),
         "-p",
         f'Execute: read SKILL.md, then answer: "{full_prompt}". Save output to {output_dir}/output.txt',
     ]
@@ -55,6 +58,7 @@ def main() -> int:
         iter_num = int(sys.argv[idx])
 
     cfg = load_evals()
+    trigger = cfg.get("trigger", {}).get("prefix", "")  # 触发前缀以 evals.json 为准,不在代码里硬编码
     skill_path = PROJECT_ROOT
     workspace = PROJECT_ROOT.parent / "deepthink-workspace"
     iter_dir = workspace / f"iteration-{iter_num}"
@@ -67,10 +71,10 @@ def main() -> int:
         etype = eval_item["type"]
         d = iter_dir / f"eval-{eid}-{etype}" / "with_skill" / "outputs"
         print(f"Running eval-{eid} ({etype})...")
-        run_agent(skill_path, prompt, d, f"eval-{eid}-claude_code")
+        run_agent(skill_path, prompt, d, f"eval-{eid}-claude_code", trigger)
 
     print(f"\nDone. Results in {iter_dir}")
-    print("To grade: spawn subagents to read output.txt and check assertions from evals.json")
+    print(f"To grade: python scripts/grade_evals.py --iter {iter_num}")
     return 0
 
 
