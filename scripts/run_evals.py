@@ -23,7 +23,7 @@ def load_evals() -> dict:
         return json.load(f)
 
 
-def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, trigger: str, timeout: int = 300) -> bool:
+def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, trigger: str, timeout: int = 900) -> bool:
     """通过 Claude Code CLI 跑单条 eval。"""
     if not shutil.which("claude"):
         print(f"  [{agent_id}] claude CLI not found, skipping")
@@ -40,13 +40,20 @@ def run_agent(skill_path: Path, prompt: str, output_dir: Path, agent_id: str, tr
         "-p",
         f'Execute: read SKILL.md, then answer: "{full_prompt}". Save output to {output_dir}/output.txt',
     ]
-    result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        cwd=str(skill_path.parent),
-        timeout=timeout,
-    )
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            cwd=str(skill_path.parent),
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired:
+        # deep 模式跑满完整协议(ToT/验证/迭代)可能远超 5 分钟;
+        # 超时只标记该条失败,不能让整个批次崩掉
+        print(f"  [{agent_id}] TIMEOUT after {timeout}s")
+        return False
+
     print(f"  [{agent_id}] exit={result.returncode} stdout={len(result.stdout)} chars")
     return result.returncode == 0
 
@@ -65,15 +72,20 @@ def main() -> int:
 
     print(f"Running {len(cfg['evals'])} evals (iteration {iter_num})")
 
+    completed = 0
     for eval_item in cfg["evals"]:
         eid = eval_item["id"]
         prompt = eval_item["prompt"]
         etype = eval_item["type"]
         d = iter_dir / f"eval-{eid}-{etype}" / "with_skill" / "outputs"
         print(f"Running eval-{eid} ({etype})...")
-        run_agent(skill_path, prompt, d, f"eval-{eid}-claude_code", trigger)
+        ok = run_agent(
+            skill_path, prompt, d, f"eval-{eid}-claude_code", trigger,
+            timeout=300 if etype == "quick" else 900,  # deep 模式需要更长上限
+        )
+        completed += ok
 
-    print(f"\nDone. Results in {iter_dir}")
+    print(f"\nDone: {completed}/{len(cfg['evals'])} evals completed. Results in {iter_dir}")
     print(f"To grade: python scripts/grade_evals.py --iter {iter_num}")
     return 0
 
