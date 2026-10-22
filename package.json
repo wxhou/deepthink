@@ -1,0 +1,14 @@
+{
+  "name": "deepthink",
+  "version": "5.2.0",
+  "private": true,
+  "description": "Adaptive deep reasoning skill (Agent Skill)",
+  "license": "MIT",
+  "scripts": {
+    "check": "python3 scripts/check_consistency.py && python3 scripts/test_grade_evals.py",
+    "deploy": "./scripts/deploy-site.sh"
+  },
+  "devDependencies": {
+    "wrangler": "4.151.3"
+  }
+}

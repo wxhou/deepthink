@@ -46,6 +46,9 @@ jobs:
         with:
           node-version: "22"   # wrangler 4.x 要求 Node >= 22
 
+      - name: Install wrangler from lockfile
+        run: npm ci
+
       - name: Verify deploy guard
         run: |
           bash ./scripts/deploy-site.sh --dry-run

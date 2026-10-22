@@ -47,13 +47,20 @@ echo "▶ Deploying $SOURCE_DIR/ → Cloudflare Pages project '$TARGET_NAME'"
 echo "  Target URL: ${PAGES_URL}"
 echo ""
 
+# 优先使用 package-lock 安装的本地 wrangler(可复现);否则退回钉版本的 npx
+if [ -x "node_modules/.bin/wrangler" ]; then
+  WRANGLER=(node_modules/.bin/wrangler)
+else
+  WRANGLER=(npx --yes "wrangler@${WRANGLER_VERSION}")
+fi
+
 if [ "${1:-}" = "--dry-run" ]; then
   echo "✅ Dry run: would run:"
-  echo "   npx --yes wrangler@${WRANGLER_VERSION} pages deploy $SOURCE_DIR/ --project-name=$TARGET_NAME --commit-dirty=true"
+  echo "   ${WRANGLER[*]} deploy"
   exit 0
 fi
 
 # 主命令:显式带 --project-name,不依赖 wrangler.toml 默认值
-exec npx --yes wrangler@${WRANGLER_VERSION} pages deploy "$SOURCE_DIR/" \
+exec "${WRANGLER[@]}" pages deploy "$SOURCE_DIR/" \
   --project-name="$TARGET_NAME" \
   --commit-dirty=true
