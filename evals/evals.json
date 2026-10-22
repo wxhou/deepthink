@@ -12,7 +12,7 @@
       "expected_output": "应触发 deep mode，执行完整流程：ToT多路径探索、验证（反思/第一性原理）、迭代、输出包含核心问题/关键假设/结论/置信度。",
       "type": "complex",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["部署"], ["性能"], ["运维"], ["团队"]]
       }
     },
     {
@@ -40,7 +40,7 @@
       "expected_output": "应触发 medium mode，多角度 pros/cons 分析，结构化决策框架，输出置信度。",
       "type": "decision",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["PostgreSQL"], ["MongoDB"]]
       }
     },
     {
@@ -78,7 +78,7 @@
       "expected_output": "应触发 medium mode，多角度列举可能原因，结构化排查思路。",
       "type": "debug",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["None", "NoneType"]]
       }
     },
     {
@@ -96,7 +96,11 @@
       "expected_output": "应触发 high mode，多层架构设计，关键组件分析，成本/性能权衡。",
       "type": "arch",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]],
+        "must_include_at_least": {
+          "count": 3,
+          "groups": [["CDN"], ["缓存", "cache"], ["分片", "shard", "partition"], ["多区域", "multi-region", "全球"], ["队列", "queue"]]
+        }
       }
     },
     {
@@ -105,7 +109,8 @@
       "expected_output": "应触发 medium mode，概念解释 + 原理 + 注意事项，结构化输出。",
       "type": "concept",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["回表", "覆盖索引", "covering index"]],
+        "must_match_any_regex": [["B\\+\\s*树", "B\\+\\s*[Tt]ree", "B-?\\s*[Tt]ree"]]
       }
     },
     {
@@ -114,7 +119,7 @@
       "expected_output": "应触发 high mode，多维度深度分析，每个维度都有充分论证和验证。",
       "type": "complex",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"]]
+        "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["拆分"], ["数据"], ["运维"], ["团队"]]
       }
     },
     {
@@ -123,7 +128,7 @@
       "expected_output": "English prompt should get an English quick-mode answer: 1-3 sentences, no DeepThink template.",
       "type": "quick",
       "assertions": {
-        "must_include_any": [["array", "Array"]],
+        "must_include_any": [["array", "Array"], ["new array"], ["original", "unchanged", "does not mutate", "doesn't modify"]],
         "must_not_include_any": [["🤔 DeepThink"], ["### Key Assumptions", "### 关键假设", "### 置信度"]]
       }
     },
@@ -133,7 +138,7 @@
       "expected_output": "English prompt should trigger medium/deep mode in English: structured answer with key assumptions and confidence.",
       "type": "decision",
       "assertions": {
-        "must_include_any": [["🤔 DeepThink"], ["### Key Assumptions", "### 关键假设"], ["### Confidence", "### 置信度"]]
+        "must_include_any": [["🤔 DeepThink"], ["### Key Assumptions", "### 关键假设"], ["### Confidence", "### 置信度"], ["TypeScript"]]
       }
     },
     {
@@ -153,7 +158,7 @@
       "expected_output": "At-sign trigger form: quick mode definition, 1-3 sentences, no template.",
       "type": "quick",
       "assertions": {
-        "must_include_any": [["CAP"]],
+        "must_include_any": [["CAP"], ["一致性", "Consistency"], ["可用性", "Availability"]],
         "must_not_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions", "### 置信度"]]
       }
     }

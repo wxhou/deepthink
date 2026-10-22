@@ -65,6 +65,22 @@ If the question can be answered directly (possibly conditionally) → 1-3 plain 
 ---
 ```
 
+## Example Outputs
+
+Quick mode (`deepthink: 999 * 888 = ?`):
+
+> 999 × 888 = 887,112. Quick mode (simple math): (1000 − 1) × 888 = 888,000 − 888 = 887,112.
+
+Deep mode (excerpt from a database-index explanation):
+
+> ### Key Assumptions
+> - [x] The context is a relational database (MySQL InnoDB / PostgreSQL) — ✅ holds
+>
+> ### Conclusion
+> An index is a **sorted auxiliary data structure** maintained per column... a B+ tree turns an O(N) page scan into O(log N)...
+>
+> ### Confidence: High
+
 ## Repository Layout
 
 ```
@@ -87,6 +103,8 @@ deepthink/
 ├── CLAUDE.md
 ├── CHANGELOG.md
 ├── LICENSE
+├── package.json         # pinned wrangler devDependency
+├── package-lock.json
 └── wrangler.toml
 ```
 
@@ -95,12 +113,14 @@ deepthink/
 16 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types, including English prompts and all three trigger forms (`deepthink: `, `/deepthink `, `@deepthink `):
 
 ```bash
-python scripts/run_evals.py --iter 1 --jobs 3   # run all cases (parallel, ~3x faster)
-python scripts/grade_evals.py --iter 1          # grade against assertions
-python scripts/grade_evals.py --iter 1 --diff 0 # compare with iteration 0
+python scripts/run_evals.py --iter 1 --jobs 3      # run all cases (parallel, ~3x faster)
+python scripts/run_evals.py --iter 2 --repeat 3    # run each case 3x for stability
+python scripts/grade_evals.py --iter 1             # grade against assertions
+python scripts/grade_evals.py --iter 1 --diff 0    # compare with iteration 0
+python scripts/grade_evals.py --iter 2 --all-runs  # per-eval pass rate across repeats
 ```
 
-Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`. Assertions are structural: `quick` prompts must answer directly (no DeepThink template), deeper modes must emit the template with key assumptions and confidence. The grader exits non-zero on any failure. `deepthink-workspace/` lives outside the repo — old `iteration-*` directories can be deleted freely.
+Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/run-{k}/outputs/output.txt` (the legacy `.../with_skill/outputs/` layout is still read). Assertions check both form and substance: `quick` prompts must answer directly (no DeepThink template), deeper modes must emit the template with key assumptions and confidence, plus case-specific content checks (the four requested dimensions, key architecture components, B+ tree mechanics, etc.). `results.json` and `grades.json` capture machine-readable run and grade data. `deepthink-workspace/` lives outside the repo — old `iteration-*` directories can be deleted freely.
 
 ## License
 

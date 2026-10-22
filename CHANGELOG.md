@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- **Evals**: substance assertions (requested dimensions, architecture
+  components, B+ tree mechanics, JS `map()` semantics), regex and
+  "at least N of" matching, `--repeat N` stability runs, `--all-runs`
+  pass rates, machine-readable `results.json` / `grades.json`.
+- **Isolation**: each eval now runs in a temporary working directory
+  instead of `~/Documents`.
+- **Supply chain**: `wrangler` pinned via `package.json` +
+  `package-lock.json` (`npm ci` in CI); Actions pinned to commit SHAs.
+- **Release**: repository tagged `v5.2.0`.
+
 ## 5.2.0 — 2026-10-22
 
 - **Quick mode hardened**: answers no longer wrap in the DeepThink template.

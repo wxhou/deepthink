@@ -25,7 +25,12 @@ SITE = ROOT / "site" / "index.html"
 CLAUDE_MD = ROOT / "CLAUDE.md"
 
 PROTOCOL_FILES = ["core/protocol.en.md", "core/protocol.zh.md"]
-KNOWN_ASSERTION_KEYS = {"must_include_any", "must_not_include_any"}
+KNOWN_ASSERTION_KEYS = {
+    "must_include_any",
+    "must_not_include_any",
+    "must_match_any_regex",
+    "must_include_at_least",
+}
 REQUIRED_EVAL_KEYS = {"id", "prompt", "type", "assertions"}
 STALE_REFS = ["references/en.md", "references/zh.md", "adapters/"]
 
@@ -42,6 +47,9 @@ def check_versions(errors: list[str]) -> None:
     cfg = json.loads(EVALS.read_text(encoding="utf-8"))
     if cfg.get("version") != v:
         errors.append(f"evals/evals.json version={cfg.get('version')!r}, expected {v!r}")
+    pkg = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    if pkg.get("version") != v:
+        errors.append(f"package.json version={pkg.get('version')!r}, expected {v!r}")
     if v not in README.read_text(encoding="utf-8"):
         errors.append(f"README.md does not mention version {v}")
     if f"v{v}" not in SITE.read_text(encoding="utf-8"):
@@ -71,6 +79,12 @@ def check_evals(errors: list[str]) -> None:
         unknown = set(e.get("assertions", {})) - KNOWN_ASSERTION_KEYS
         if unknown:
             errors.append(f"eval {e.get('id')}: unknown assertion keys {sorted(unknown)}")
+        for group in e.get("assertions", {}).get("must_match_any_regex", []):
+            for pattern in group:
+                try:
+                    re.compile(pattern)
+                except re.error as exc:
+                    errors.append(f"eval {e.get('id')}: invalid regex {pattern!r}: {exc}")
 
 
 def check_stale_refs(errors: list[str]) -> None:
