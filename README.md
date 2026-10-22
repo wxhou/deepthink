@@ -32,7 +32,7 @@ deepthink: 选择 PostgreSQL 还是 MongoDB?
 ## How It Works
 
 ### Quick Mode (default for simple queries)
-If the question is answerable in one sentence → 1-3 sentence direct answer, stop.
+If the question can be answered directly (possibly conditionally) → 1-3 plain sentences, no template, stop.
 
 ### Deep Mode (default for complex queries)
 1. **Problem Decomposition + Assumption Statement** — mandatory list of key assumptions with self-verification (✅ holds / ❌ fails / ❓ pending)
@@ -74,9 +74,20 @@ deepthink/
 │   ├── protocol.en.md   # English
 │   └── protocol.zh.md   # Chinese
 ├── evals/
-│   └── evals.json       # 12 test cases (quick/medium/high)
-└── scripts/
-    └── run_evals.py     # Eval runner
+│   └── evals.json       # 16 test cases + trigger config + assertions
+├── scripts/
+│   ├── run_evals.py     # Run evals via claude CLI (--jobs, --only)
+│   ├── grade_evals.py   # Grade outputs (--diff, --only)
+│   ├── test_grade_evals.py
+│   ├── check_consistency.py
+│   └── deploy-site.sh   # Locked Cloudflare Pages deploy
+├── site/
+│   └── index.html       # Landing page
+├── .github/workflows/   # check.yml (consistency) + deploy-site.yml
+├── CLAUDE.md
+├── CHANGELOG.md
+├── LICENSE
+└── wrangler.toml
 ```
 
 ## Evals
@@ -84,11 +95,12 @@ deepthink/
 16 test cases across `quick` / `decision` / `debug` / `tradeoff` / `arch` / `concept` / `complex` types, including English prompts and all three trigger forms (`deepthink: `, `/deepthink `, `@deepthink `):
 
 ```bash
-python scripts/run_evals.py --iter 1      # run all cases via claude CLI
-python scripts/grade_evals.py --iter 1    # grade outputs against assertions in evals.json
+python scripts/run_evals.py --iter 1 --jobs 3   # run all cases (parallel, ~3x faster)
+python scripts/grade_evals.py --iter 1          # grade against assertions
+python scripts/grade_evals.py --iter 1 --diff 0 # compare with iteration 0
 ```
 
-Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`. Assertions are structural: `quick` prompts must answer directly (no DeepThink template), deeper modes must emit the template with key assumptions and confidence. The grader exits non-zero on any failure.
+Outputs go to `deepthink-workspace/iteration-N/eval-{id}-{type}/with_skill/outputs/output.txt`. Assertions are structural: `quick` prompts must answer directly (no DeepThink template), deeper modes must emit the template with key assumptions and confidence. The grader exits non-zero on any failure. `deepthink-workspace/` lives outside the repo — old `iteration-*` directories can be deleted freely.
 
 ## License
 

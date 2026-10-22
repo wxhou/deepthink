@@ -2,6 +2,7 @@
 name: deepthink
 description: "Adaptive deep reasoning skill that automatically adjusts analysis depth based on question complexity. Uses sequential thinking, multi-path tree-of-thought exploration, Socratic questioning, first-principles verification, and iterative validation to produce high-confidence answers. Quick mode for simple queries, deep mode for complex problems. Bilingual: auto-detects Chinese vs English from prompt."
 version: 5.2.0
+license: MIT
 ---
 
 # DeepThink
@@ -23,7 +24,7 @@ Read the user's prompt:
 
 The full protocol lives in `core/`. Read the appropriate language version above and follow it. Key sections:
 
-1. **Quick Mode Check** — if answerable in one sentence, answer in 1-3 plain sentences and stop — no template, no section headers
+1. **Quick Mode Check** — if answerable directly (possibly conditionally) in ≤3 sentences, answer in 1-3 plain sentences and stop — no template, no section headers
 2. **Problem Decomposition + Assumption Statement** — mandatory assumption list
 3. **Socratic Questioning** — clarify, assumptions, evidence, counterexamples, alternatives, consequences
 4. **Multi-Level Analysis** — Tree of Thoughts (mandatory for high effort) → Understand → Plan → Execute → Verify

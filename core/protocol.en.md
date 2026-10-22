@@ -11,7 +11,7 @@
 
 ## Quick Mode Check
 
-**Ask first: Can this be answered in one sentence?**
+**Ask first: Can this be answered directly in one short answer (possibly conditional)?**
 - **Yes** → Answer in 1-3 plain sentences, stop. No protocol, no output template.
 - **No** → Proceed to Core Protocol.
 
