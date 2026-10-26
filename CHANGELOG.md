@@ -1,16 +1,12 @@
 # Changelog
 
-## Unreleased
+## 5.3.0 — 2026-10-26
 
-- **Evals**: substance assertions (requested dimensions, architecture
-  components, B+ tree mechanics, JS `map()` semantics), regex and
-  "at least N of" matching, `--repeat N` stability runs, `--all-runs`
-  pass rates, machine-readable `results.json` / `grades.json`.
-- **Isolation**: each eval now runs in a temporary working directory
-  instead of `~/Documents`.
-- **Supply chain**: `wrangler` pinned via `package.json` +
-  `package-lock.json` (`npm ci` in CI); Actions pinned to commit SHAs.
-- **Release**: repository tagged `v5.2.0`.
+- **Protocol**: effort levels now describe expansion scope (direct analysis /
+  main dimensions / all dimensions with cross-validation) instead of fixed
+  round counts; multi-path (ToT) comparison is no longer mandatory for high
+  effort — the model judges whether to expand. Dependent wording (completeness
+  check, flowchart, README, evals) updated to match.
 
 ## 5.2.0 — 2026-10-22
 
@@ -22,11 +18,18 @@
 - **Eval harness**: 16 cases (README examples, English prompts, all three
   trigger forms), structural assertions, automatic grading (`grade_evals.py`),
   parallel runs (`--jobs`), iteration diffing (`--diff`), per-eval `agent.log`.
+- **Evals**: substance assertions (requested dimensions, architecture
+  components, B+ tree mechanics, JS `map()` semantics), regex and
+  "at least N of" matching, `--repeat N` stability runs, `--all-runs`
+  pass rates, machine-readable `results.json` / `grades.json`.
+- **Isolation**: each eval runs in a temporary working directory.
+- **Supply chain**: `wrangler` pinned via `package.json` +
+  `package-lock.json` (`npm ci` in CI); Actions pinned to commit SHAs.
 - **CI**: zero-cost consistency check (version/路径/JSON/残留) + grader self-test;
   deploy switched from a non-existent Pages project to Workers static assets
   and now runs against Cloudflare Pages at `deepthinking.pages.dev`.
-- **Housekeeping**: MIT `LICENSE` added, wrangler pinned to 4.151.3,
-  Actions pinned to commit SHAs, python bytecode ignored.
+- **Housekeeping**: MIT `LICENSE` added, python bytecode ignored.
+- **Release**: repository tagged `v5.2.0`.
 
 ## 5.1.0 — 2026-09-20
 

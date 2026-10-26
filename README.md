@@ -2,7 +2,7 @@
 
 [![skills.sh](https://skills.sh/b/wxhou/deepthink)](https://skills.sh/wxhou/deepthink)
 
-Adaptive deep reasoning skill — auto-detects question complexity and adjusts analysis depth. Quick mode for simple queries, full protocol (ToT / Socratic / verification / iteration) for complex problems. Bilingual (auto Chinese/English).
+Adaptive deep reasoning skill — auto-detects question complexity and adjusts analysis depth. Quick mode for simple queries, full protocol (multi-path analysis / Socratic / verification / iteration) for complex problems. Bilingual (auto Chinese/English).
 
 ## Install
 
@@ -18,6 +18,15 @@ npx skills add wxhou/deepthink -a claude-code   # target one agent instead of in
 ```
 
 Works with Claude Code, Cursor, Codex, GitHub Copilot, Windsurf, Gemini, Cline, Roo, Zed, VS Code and 20+ other agents listed at [skills.sh](https://skills.sh). The skill folder (`SKILL.md` + `core/`) is copied into each agent's skills directory.
+
+## Update
+
+```bash
+npx skills update deepthink   # update this skill to the latest version
+npx skills update -g          # update all globally installed skills
+```
+
+`update` supports `-p` (project skills only), `-g` (global only) and `-y` (skip prompts). Re-running `npx skills add wxhou/deepthink` also refreshes the installed copy.
 
 ## Usage
 
@@ -36,9 +45,9 @@ If the question can be answered directly (possibly conditionally) → 1-3 plain 
 
 ### Deep Mode (default for complex queries)
 1. **Problem Decomposition + Assumption Statement** — mandatory list of key assumptions with self-verification (✅ holds / ❌ fails / ❓ pending)
-2. **Effort Level** — `low` (2-3 rounds) / `medium` (5-6) / `high` (7-9), adjusted by complexity rules
+2. **Effort Level** — `low` / `medium` / `high`, describing how far to expand (direct analysis / main dimensions / all dimensions with cross-validation), adjusted by complexity rules
 3. **Socratic Questioning** — Clarify / Assumptions / Evidence / Counterexamples / Alternatives / Consequences
-4. **Multi-Level Analysis** — Tree of Thoughts (mandatory for high effort) → Understand → Plan → Execute → Verify
+4. **Multi-Level Analysis** — compare multiple paths when warranted → Understand → Plan → Execute → Verify
 5. **Verification** — Reflection / First Principles / Backward / Self-Consistency
 6. **Iteration** — if Low/Medium confidence or multi-subsystem
 7. **Completeness Check** — confirm all steps before output
@@ -128,4 +137,4 @@ MIT
 
 ## Version
 
-5.2.0 — published to skills.sh
+5.3.0 — published to skills.sh

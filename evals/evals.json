@@ -1,6 +1,6 @@
 {
   "skill_name": "deepthink",
-  "version": "5.2.0",
+  "version": "5.3.0",
   "trigger": {
     "prefix": "deepthink: ",
     "alternatives": ["/deepthink", "@deepthink"]
@@ -9,7 +9,7 @@
     {
       "id": 0,
       "prompt": "我们公司考虑从微服务架构迁移到模块化单体。团队有12个人，分成4个小组。分析下迁移的利弊，给出建议。考虑：部署复杂度、性能、运维开销、团队结构。",
-      "expected_output": "应触发 deep mode，执行完整流程：ToT多路径探索、验证（反思/第一性原理）、迭代、输出包含核心问题/关键假设/结论/置信度。",
+      "expected_output": "应触发 deep mode，执行完整流程：多路径比较（如适用）、验证（反思/第一性原理）、迭代、输出包含核心问题/关键假设/结论/置信度。",
       "type": "complex",
       "assertions": {
         "must_include_any": [["🤔 DeepThink"], ["### 关键假设", "### Key Assumptions"], ["### 置信度", "### Confidence"], ["部署"], ["性能"], ["运维"], ["团队"]]

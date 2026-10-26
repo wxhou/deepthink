@@ -44,11 +44,11 @@ Complex examples: trade-offs evaluation, multi-step analysis, architecture decis
 
 **Effort Level Assessment**:
 
-| Effort | Problem Characteristics | Thinking Rounds |
-|--------|------------------------|----------------|
-| **low** | Single dimension, no search needed | 2-3 rounds |
-| **medium** | Multi-angle analysis, may need search | 5-6 rounds |
-| **high** | Complex reasoning, multi-system, deep argumentation | 7-9 rounds |
+| Effort | Problem Characteristics | Scope |
+|--------|------------------------|-------|
+| **low** | Single dimension, no search needed | Direct analysis, no dimension expansion |
+| **medium** | Multi-angle analysis, may need search | Expand the main dimensions |
+| **high** | Complex reasoning, multi-system, deep argumentation | Expand all dimensions and cross-validate |
 
 **Note**: Simple factual queries don't fall into any level — handled in Quick Mode.
 
@@ -78,7 +78,7 @@ Select applicable follow-ups:
 ### 3. Multi-Level Analysis
 For each sub-problem, loop:
 
-- **ToT (mandatory for high effort)**: explore 2-3 reasoning paths first, compare, then deepen
+- **Multiple paths**: for high-effort problems, compare 2-3 viable paths before deepening; whether to expand is the model's call — not mandatory
 - **Understand**: Restate in your own words, list assumptions and boundaries
 - **Plan**: Brainstorm N strategies, evaluate pros/cons
 - **Execute**: Step by step, need external info → search immediately
@@ -107,7 +107,7 @@ Iterate: Redefine problem → Add evidence → Reanalyze → Verify
 
 ### 6. Completeness Check
 Before output, confirm:
-- ToT multi-path exploration completed?
+- If the problem warranted multiple paths, were the key paths compared?
 - Verification (reflection/first principles/backward/self-consistency) completed?
 - Arguments supported by evidence (source or reasoning)?
 - Iteration completed (if needed)?
@@ -168,7 +168,7 @@ When encountering uncertain information, naturally think "I'm not sure, let me c
 ## Flowchart
 
 ```
-Question → Decomposition → Assumption Statement → ToT Paths → Socratic → Multi-Level Analysis
+Question → Decomposition → Assumption Statement → Path comparison (if needed) → Socratic → Multi-Level Analysis
     ↓
 Verification (Reflection/First Principles/Backward/Self-Consistency) ← Iterate (if needed)
     ↓
