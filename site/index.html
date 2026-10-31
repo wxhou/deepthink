@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://deepthinking.pages.dev/">
+<meta name="theme-color" content="#171411">
+<meta name="color-scheme" content="dark">
 <title>DeepThink — 让 AI 学会深度思考</title>
 <meta name="description" content="自适应深度推理 Agent Skill。简单问题一句话直答,复杂问题启动完整协议。npx skills add wxhou/deepthink 一行安装到 20+ AI 工具。">
+<meta property="og:type" content="website">
 <meta property="og:title" content="DeepThink — 让 AI 学会深度思考">
 <meta property="og:description" content="自适应深度推理 Agent Skill。npx skills add wxhou/deepthink">
+<meta property="og:url" content="https://deepthinking.pages.dev/">
+<meta property="og:site_name" content="DeepThink">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23171411'/><text x='50' y='66' font-size='50' text-anchor='middle' fill='%23d9a441' font-family='Georgia' font-style='italic'>D</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +24,7 @@
     --ink-3: #2a251e;
     --paper: #ece4d3;
     --paper-dim: #a99c85;
-    --paper-faint: #746a56;
+    --paper-faint: #92866f;
     --gold: #d9a441;
     --gold-deep: #b8842c;
     --gold-faint: rgba(217, 164, 65, 0.13);
@@ -58,6 +64,21 @@
   .sage { color: var(--sage); }
   .dim { color: var(--paper-dim); }
   .mono { font-family: var(--mono); }
+
+  /* accessibility floor */
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 200;
+    background: var(--gold); color: var(--ink);
+    font-family: var(--mono); font-size: 13px;
+    padding: 10px 16px; text-decoration: none;
+    transition: top .2s;
+  }
+  .skip-link:focus { top: 12px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 3px;
+  }
+  h1, h2 { text-wrap: balance; }
+  .hero-sub, .sec-sub, .essay p, .response-block { text-wrap: pretty; }
 
   /* ============ NAV ============ */
   nav {
@@ -99,7 +120,7 @@
   .hero::before {
     content: "";
     position: absolute; top: -220px; left: 50%; transform: translateX(-50%);
-    width: 900px; height: 700px;
+    width: min(900px, 100%); height: 700px;
     background: radial-gradient(ellipse 55% 50% at 50% 40%, rgba(217,164,65,.09), transparent 70%);
     pointer-events: none;
   }
@@ -181,12 +202,12 @@
 
   .hero-foot {
     margin-top: clamp(24px, 4vh, 44px);
-    display: flex; justify-content: center; gap: clamp(24px, 5vw, 64px);
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 12px clamp(24px, 5vw, 64px);
     font-family: var(--mono); font-size: 12px; color: var(--paper-faint);
     letter-spacing: 0.12em;
     opacity: 0; animation: fadein 1s 1.15s ease forwards;
   }
-  .hero-foot span { display: flex; align-items: center; gap: 10px; }
+  .hero-foot span { display: flex; align-items: center; gap: 10px; word-break: keep-all; }
   .hero-foot i { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
   /* ============ ORNAMENT DIVIDER ============ */
@@ -405,33 +426,48 @@
     font-family: var(--mono); font-size: 12.5px; line-height: 2.4;
     color: var(--paper-faint);
   }
-  .agents-line .a { color: var(--paper-dim); transition: color .2s; cursor: default; }
+  .agents-line .a { color: var(--paper-dim); transition: color .2s; cursor: default; white-space: nowrap; }
   .agents-line .a:hover { color: var(--gold); }
   .agents-line .sep { color: var(--gold); opacity: .5; padding: 0 6px; }
 
   .big-install {
-    display: inline-flex; align-items: stretch;
+    display: inline-flex; flex-direction: column;
+    width: min(100%, 640px);
     background: var(--ink-2);
     border: 1px solid var(--gold);
     outline: 1px solid var(--line-gold);
     outline-offset: 6px;
     font-family: var(--mono);
     box-shadow: 0 0 60px rgba(217,164,65,.07);
+    text-align: left;
   }
-  .big-install .ps1 { color: var(--sage); padding: 22px 0 22px 30px; font-size: 17px; }
-  .big-install code { color: var(--paper); padding: 22px 16px 22px 10px; font-size: 17px; white-space: nowrap; }
-  .big-install button {
+  .cmd-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--line); }
+  .cmd-row:last-child { border-bottom: none; }
+  .cmd-row .ps1 { color: var(--sage); padding: 16px 0 16px 22px; font-size: 15px; flex-shrink: 0; }
+  .cmd-row code {
+    color: var(--paper); padding: 16px 14px 16px 10px; font-size: 15px;
+    white-space: nowrap; overflow-x: auto; flex: 1;
+  }
+  .cmd-row button {
     border: none; border-left: 1px solid var(--line-gold);
     background: var(--gold); color: var(--ink);
-    font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.14em;
-    padding: 0 30px; cursor: pointer;
+    font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.14em;
+    padding: 0 24px; cursor: pointer; flex-shrink: 0;
     transition: background .2s;
   }
-  .big-install button:hover { background: var(--paper); }
-  .big-install button.copied { background: var(--sage); }
-  .big-install button:focus-visible, .get-cmd:focus-visible {
-    outline: 2px solid var(--gold); outline-offset: 3px;
+  .cmd-row button:hover { background: var(--paper); }
+  .cmd-row button.copied { background: var(--sage); }
+
+  .install-links {
+    margin-top: 30px;
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em;
   }
+  .install-links a {
+    color: var(--gold); text-decoration: none;
+    padding-bottom: 3px; border-bottom: 1px solid var(--line-gold);
+    transition: color .2s, border-color .2s;
+  }
+  .install-links a:hover { color: var(--paper); border-color: var(--gold); }
 
   /* small usage hint under big install */
   .usage-hint {
@@ -460,6 +496,7 @@
   .foot-motto b { color: var(--gold); font-weight: 500; }
 
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     .reveal, h1 .row, .hero-sub, .install-wrap, .hero-kicker, .hero-foot { opacity: 1; transform: none; }
   }
@@ -483,30 +520,38 @@
   /* mobile refinements */
   @media (max-width: 560px) {
     h1 { line-height: 1.22; }
+    h1 .row:first-child { white-space: normal; }
     .specimen .pane { padding: 24px 20px; }
     .flow { font-size: 11.5px; }
     .gauge-row .g-desc { display: none; }
-    .big-install .ps1 { padding: 18px 0 18px 18px; font-size: 14px; }
-    .big-install code { padding: 18px 10px; font-size: 13.5px; }
-    .big-install button { padding: 0 18px; font-size: 12px; }
+    .cmd-row { flex-wrap: wrap; }
+    .cmd-row .ps1 { padding: 14px 0 14px 16px; font-size: 13px; }
+    .cmd-row code { padding: 14px 12px 14px 8px; font-size: 13px; white-space: normal; word-break: break-all; }
+    .cmd-row button { width: 100%; border-left: none; border-top: 1px solid var(--line-gold); padding: 11px; font-size: 11px; }
+    .foot-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .agents-line { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 14px; }
+    .agents-line .sep, .agents-line wbr { display: none; }
   }
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main">跳到正文</a>
+
 <nav>
   <div class="nav-inner">
-    <a class="brand" href="#">Deep<em>Think</em></a>
+    <a class="brand" href="#main">Deep<em>Think</em></a>
     <div class="nav-links">
       <a href="#modes" class="hide-s"> Modes</a>
       <a href="#protocol" class="hide-s">Protocol</a>
       <a href="#install">Install</a>
-      <a href="https://github.com/wxhou/deepthink" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh ↗</a>
     </div>
   </div>
 </nav>
 
 <!-- ============ HERO ============ -->
+<main id="main">
 <header class="hero">
   <div class="wrap">
     <div class="hero-kicker">An Open Agent Skill · v5.3</div>
@@ -516,7 +561,7 @@
     </h1>
     <p class="hero-sub">
       DeepThink 自动感知问题复杂度——<b>简单问题一句话直答</b>,<b>复杂问题启动完整推理协议</b>。
-      树状探索、苏格拉底追问、第一性验证——直到置信度足够高,才开口。
+      多路径比较、苏格拉底追问、第一性验证——直到置信度足够高,才开口。
     </p>
 
     <div class="install-wrap">
@@ -540,7 +585,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div class="sec-num">CHAPTER I · 自适应深度</div>
-      <h2>不是每个问题,都值得<em>重装上阵</em>。</h2>
+      <h2>不是每个问题,<br>都值得<em>重装上阵</em>。</h2>
       <p class="sec-sub">「今天周几?」不该触发八百字推理;「该迁移到微服务吗?」不该敷衍一句。回答之前,先回答:这件事,值得想多深?</p>
     </div>
 
@@ -564,12 +609,12 @@
         <h3>Deep <em>Mode</em></h3>
         <p class="mode-q">「PostgreSQL 还是 MongoDB?」</p>
         <div class="response-block">
-          声明假设 → 拆解子问题 → 探索三条推理路径 → 四重验证 → 分场景作答
+          声明假设 → 拆解子问题 → 比较可行路径(如需要) → 四重验证 → 分场景作答
           <br><span class="mode-tag">完整协议 · 附置信度</span>
         </div>
         <ul>
           <li>强制声明关键假设,对抗先入之见</li>
-          <li>low / medium / high 三档思考深度</li>
+          <li>low / medium / high 三档分析范围</li>
           <li>置信度不足,便自动迭代重来</li>
         </ul>
       </div>
@@ -611,8 +656,8 @@
       <div class="essay">
         <span class="no">iv.</span>
         <div>
-          <h4>树状探索 <span class="latin">tree of thoughts</span></h4>
-          <p>高复杂度问题必须并行探索 2-3 条推理路径,比较之后再深入。</p>
+          <h4>多路径比较 <span class="latin">compare paths</span></h4>
+          <p>高复杂度问题先比较 2-3 条可行路径再深入;是否铺开由模型判断,不设"必须"。</p>
         </div>
       </div>
       <div class="essay">
@@ -641,7 +686,7 @@
     <div class="specimen reveal">
       <div class="pane">
         <div class="pane-label">Fig. 1 — 推理流程</div>
-        <pre class="flow">问题  → 拆解 → <span class="gold">假设声明</span> → 树状探索
+        <pre class="flow">问题  → 拆解 → <span class="gold">假设声明</span> → 多路径比较(如需要)
   → 苏格拉底追问 → 多层分析
   ↓
     自验假设 <span class="sage">✅ ❌ ❓</span>
@@ -682,42 +727,56 @@
     </div>
 
     <p class="agents-line reveal">
-      <span class="a">Claude Code</span><span class="sep">·</span><span class="a">Cursor</span><span class="sep">·</span><span class="a">Codex</span><span class="sep">·</span><span class="a">GitHub Copilot</span><span class="sep">·</span><span class="a">Windsurf</span><span class="sep">·</span><span class="a">Gemini CLI</span><span class="sep">·</span><span class="a">Cline</span><span class="sep">·</span><span class="a">Roo Code</span><span class="sep">·</span><span class="a">Zed</span><span class="sep">·</span><span class="a">VS Code</span><span class="sep">·</span><span class="a">Goose</span><span class="sep">·</span><span class="a">AMP</span><span class="sep">·</span>等
+      <span class="a">Claude Code</span><span class="sep">·</span><wbr><span class="a">Cursor</span><span class="sep">·</span><wbr><span class="a">Codex</span><span class="sep">·</span><wbr><span class="a">GitHub Copilot</span><span class="sep">·</span><wbr><span class="a">Windsurf</span><span class="sep">·</span><wbr><span class="a">Gemini CLI</span><span class="sep">·</span><wbr><span class="a">Cline</span><span class="sep">·</span><wbr><span class="a">Roo Code</span><span class="sep">·</span><wbr><span class="a">Zed</span><span class="sep">·</span><wbr><span class="a">VS Code</span><span class="sep">·</span><wbr><span class="a">Goose</span><span class="sep">·</span><wbr><span class="a">AMP</span><span class="sep">·</span><wbr>等
     </p>
 
     <div class="reveal">
-      <div class="big-install">
-        <span class="ps1">$</span>
-        <code>npx skills add wxhou/deepthink</code>
-        <button class="copy-btn" onclick="copyCmd(this)">COPY</button>
+      <div class="big-install" role="group" aria-label="安装与更新命令">
+        <div class="cmd-row">
+          <span class="ps1" aria-hidden="true">$</span>
+          <code>npx skills add wxhou/deepthink</code>
+          <button type="button" class="copy-btn" data-cmd="npx skills add wxhou/deepthink" aria-label="复制安装命令" aria-live="polite" onclick="copyCmd(this)">COPY</button>
+        </div>
+        <div class="cmd-row">
+          <span class="ps1" aria-hidden="true">$</span>
+          <code>npx skills update deepthink</code>
+          <button type="button" class="copy-btn" data-cmd="npx skills update deepthink" aria-label="复制更新命令" aria-live="polite" onclick="copyCmd(this)">COPY</button>
+        </div>
       </div>
       <div class="usage-hint">
         <span class="u"><span class="t">Claude Code</span><code>/deepthink 你的问题</code></span>
         <span class="u"><span class="t">Cursor / Copilot</span><code>deepthink: 你的问题</code></span>
         <span class="u"><span class="t">其他工具</span><code>自动识别,无需配置</code></span>
       </div>
-      <p style="margin-top:16px;font-size:14px;color:var(--paper-faint)">更新：<code>npx skills update deepthink</code></p>
-      <p style="margin-top:24px;font-style:italic;font-size:14px;color:var(--paper-faint)">在 <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener" style="color:var(--gold)">skills.sh</a> 查看此技能 · <a href="https://github.com/wxhou/deepthink" target="_blank" rel="noopener" style="color:var(--gold)">GitHub 源码</a></p>
+      <p class="install-links">在 <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh 查看此技能 ↗</a></p>
     </div>
   </div>
 </section>
+</main>
+
+<div class="wrap"><div class="orn"><span class="glyph">❦</span></div></div>
 
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap foot-inner">
     <div>deepthink <span class="gold">v5.3.0</span> · MIT License</div>
     <div class="foot-motto">festina <b>lente</b> — 缓缓求快</div>
-    <div><a href="https://github.com/wxhou/deepthink" target="_blank" rel="noopener">github/wxhou/deepthink</a> · <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh</a></div>
+    <div><a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh</a></div>
   </div>
 </footer>
 
 <script>
   function copyCmd(btn) {
-    navigator.clipboard.writeText('npx skills add wxhou/deepthink').then(() => {
+    const cmd = btn.dataset.cmd;
+    if (!navigator.clipboard) { btn.textContent = '请手动复制'; return; }
+    navigator.clipboard.writeText(cmd).then(() => {
       const old = btn.textContent;
       btn.textContent = 'COPIED ✓';
       btn.classList.add('copied');
       setTimeout(() => { btn.textContent = old; btn.classList.remove('copied'); }, 1800);
+    }).catch(() => {
+      btn.textContent = '复制失败';
+      setTimeout(() => { btn.textContent = 'COPY'; }, 1800);
     });
   }
 
