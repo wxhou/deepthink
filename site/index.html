@@ -4,20 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://deepthinking.pages.dev/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="applicable-device" content="pc,mobile">
 <meta name="theme-color" content="#171411">
 <meta name="color-scheme" content="dark">
-<title>DeepThink — 让 AI 学会深度思考</title>
-<meta name="description" content="自适应深度推理 Agent Skill。简单问题一句话直答,复杂问题启动完整协议。npx skills add wxhou/deepthink 一行安装到 20+ AI 工具。">
+<title>DeepThink — 让 AI 深度思考的 Agent Skill｜Claude Code / Cursor</title>
+<meta name="description" content="DeepThink 是一个开源 Agent Skill:按问题复杂度自动选择 Quick 或 Deep 模式,复杂问题声明假设、拆解验证并标注置信度。npx skills add wxhou/deepthink,一行安装到 Claude Code、Cursor 等 20+ AI 工具。">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DeepThink — 让 AI 学会深度思考">
-<meta property="og:description" content="自适应深度推理 Agent Skill。npx skills add wxhou/deepthink">
+<meta property="og:title" content="DeepThink — 让 AI 深度思考的 Agent Skill">
+<meta property="og:description" content="开源 Agent Skill:按复杂度自动选择 Quick/Deep 模式,复杂问题声明假设、拆解验证并标注置信度。npx skills add wxhou/deepthink">
 <meta property="og:url" content="https://deepthinking.pages.dev/">
 <meta property="og:site_name" content="DeepThink">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23171411'/><text x='50' y='66' font-size='50' text-anchor='middle' fill='%23d9a441' font-family='Georgia' font-style='italic'>D</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@400;600;900&display=swap" rel="stylesheet">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://deepthinking.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DeepThink — 让 AI 深度思考的 Agent Skill">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DeepThink — 让 AI 深度思考的 Agent Skill">
+<meta name="twitter:description" content="开源 Agent Skill:按复杂度自动选择 Quick/Deep 模式,复杂问题声明假设、拆解验证并标注置信度。">
+<meta name="twitter:image" content="https://deepthinking.pages.dev/assets/og.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/eb-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.classList.add('js');</script>
 <style>
+  /* Self-hosted Latin subsets (SIL Open Font License) */
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/eb-garamond-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/eb-garamond-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url("assets/fonts/eb-garamond-latin-400-italic.woff2") format("woff2"); }
+  @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 500; font-display: swap; src: url("assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-style: italic; font-weight: 400; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-400-italic.woff2") format("woff2"); }
+
   :root {
     --ink: #171411;
     --ink-2: #201c17;
@@ -32,9 +55,9 @@
     --rust: #c96f4a;
     --line: rgba(236, 228, 211, 0.12);
     --line-gold: rgba(217, 164, 65, 0.32);
-    --serif: "EB Garamond", "Noto Serif SC", serif;
-    --display: "Cormorant Garamond", "Noto Serif SC", serif;
-    --mono: "IBM Plex Mono", "PingFang SC", monospace;
+    --serif: "EB Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+    --display: "Cormorant Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
+    --mono: "IBM Plex Mono", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -109,6 +132,11 @@
   }
   .nav-links a:hover { color: var(--gold); border-bottom-color: var(--line-gold); }
   @media (max-width: 680px) { .nav-links a.hide-s { display: none; } }
+  @media (max-width: 380px) {
+    .nav-inner { padding-left: 14px; padding-right: 14px; }
+    .nav-links { gap: 16px; font-size: 11.5px; }
+    .nav-links a { letter-spacing: 0.05em; }
+  }
 
   /* ============ HERO ============ */
   .hero {
@@ -150,10 +178,11 @@
     max-width: 980px; margin-left: auto; margin-right: auto;
   }
   h1 .row:first-child { white-space: nowrap; }
-  h1 .row { display: block; opacity: 0; transform: translateY(26px); animation: rise 1s var(--ease, cubic-bezier(.19,1,.22,1)) forwards; }
+  h1 .row { display: block; transform: translateY(26px); animation: rise-only 1s var(--ease, cubic-bezier(.19,1,.22,1)) forwards; }
   h1 .row:nth-child(1) { animation-delay: .25s; }
   h1 .row:nth-child(2) { animation-delay: .45s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
+  @keyframes rise-only { to { transform: none; } }
   h1 em {
     font-style: italic;
     font-weight: 500;
@@ -245,8 +274,8 @@
   @media (max-width: 560px) { h2 em { white-space: normal; } }
   .sec-sub { color: var(--paper-dim); font-size: 16.5px; line-height: 1.85; }
 
-  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .9s cubic-bezier(.19,1,.22,1); }
-  .reveal.in { opacity: 1; transform: none; }
+  .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s ease, transform .9s cubic-bezier(.19,1,.22,1); }
+  .js .reveal.in { opacity: 1; transform: none; }
 
   /* ============ DIALECTIC: modes ============ */
   .dialectic {
@@ -342,13 +371,13 @@
     transition: width .35s cubic-bezier(.19,1,.22,1);
   }
   .essay:hover .no::after { width: 14px; }
-  .essay h4 {
+  .essay h3 {
     font-family: var(--serif);
     font-size: 18.5px; font-weight: 600;
     margin-bottom: 6px;
     display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
   }
-  .essay h4 .latin {
+  .essay h3 .latin {
     font-family: var(--mono); font-weight: 400; font-style: italic;
     font-size: 12px; color: var(--paper-faint); letter-spacing: 0.06em;
   }
@@ -481,6 +510,19 @@
   .usage-hint .u code { color: var(--paper-dim); }
   @media (max-width: 560px) { .usage-hint .u .t { width: auto; text-align: left; } .usage-hint .u { flex-direction: column; gap: 2px; } }
 
+  /* ============ FAQ ============ */
+  .faq-sec { border-top: 1px solid var(--line); }
+  .faq { border-top: 1px solid var(--line); }
+  .faq-item {
+    display: grid; grid-template-columns: minmax(180px, .85fr) 1.4fr;
+    gap: clamp(16px, 3vw, 40px);
+    padding: 26px 0; border-bottom: 1px solid var(--line);
+  }
+  .faq-item h3 { font-family: var(--serif); font-size: 18.5px; font-weight: 600; line-height: 1.5; }
+  .faq-item p { color: var(--paper-dim); font-size: 15.5px; line-height: 1.85; }
+  .faq-item code { font-family: var(--mono); font-size: .92em; color: var(--gold); }
+  @media (max-width: 640px) { .faq-item { grid-template-columns: 1fr; gap: 8px; } }
+
   /* ============ FOOTER ============ */
   footer {
     border-top: 1px solid var(--line);
@@ -498,7 +540,7 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    .reveal, h1 .row, .hero-sub, .install-wrap, .hero-kicker, .hero-foot { opacity: 1; transform: none; }
+    .js .reveal, h1 .row, .hero-sub, .install-wrap, .hero-kicker, .hero-foot { opacity: 1; transform: none; }
   }
 
   /* scroll cue */
@@ -521,6 +563,10 @@
   @media (max-width: 560px) {
     h1 { line-height: 1.22; }
     h1 .row:first-child { white-space: normal; }
+    .hero-kicker { font-size: 10.5px; letter-spacing: 0.28em; gap: 12px; }
+    .hero-kicker::before, .hero-kicker::after { width: 26px; }
+    .hero-foot { gap: 8px 12px; font-size: 10.5px; letter-spacing: 0.08em; }
+    .hero-foot span { gap: 8px; }
     .specimen .pane { padding: 24px 20px; }
     .flow { font-size: 11.5px; }
     .gauge-row .g-desc { display: none; }
@@ -532,7 +578,41 @@
     .agents-line { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 14px; }
     .agents-line .sep, .agents-line wbr { display: none; }
   }
+  @media (max-width: 380px) {
+    h1 { font-size: clamp(30px, 9.4vw, 38px); }
+    .hero-kicker { font-size: 9.5px; letter-spacing: 0.22em; gap: 8px; }
+    .hero-kicker::before, .hero-kicker::after { width: 18px; }
+  }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://deepthinking.pages.dev/#website",
+      "url": "https://deepthinking.pages.dev/",
+      "name": "DeepThink",
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://deepthinking.pages.dev/#app",
+      "name": "DeepThink",
+      "url": "https://deepthinking.pages.dev/",
+      "description": "按问题复杂度自动调整推理深度的开源 Agent Skill",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Any",
+      "softwareVersion": "5.3.0",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0" },
+      "license": "https://opensource.org/licenses/MIT",
+      "sameAs": ["https://www.skills.sh/wxhou/deepthink"],
+      "inLanguage": "zh-CN"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -544,8 +624,9 @@
     <div class="nav-links">
       <a href="#modes" class="hide-s"> Modes</a>
       <a href="#protocol" class="hide-s">Protocol</a>
+      <a href="#faq">FAQ</a>
       <a href="#install">Install</a>
-      <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh ↗</a>
+      <a href="https://www.skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh ↗</a>
     </div>
   </div>
 </nav>
@@ -560,7 +641,7 @@
       <span class="row">而不是轻率作答。</span>
     </h1>
     <p class="hero-sub">
-      DeepThink 自动感知问题复杂度——<b>简单问题一句话直答</b>,<b>复杂问题启动完整推理协议</b>。
+      DeepThink 是一个开源 Agent Skill:自动感知问题复杂度——<b>简单问题一句话直答</b>,<b>复杂问题启动完整推理协议</b>。
       多路径比较、苏格拉底追问、第一性验证——直到置信度足够高,才开口。
     </p>
 
@@ -635,49 +716,49 @@
       <div class="essay">
         <span class="no">i.</span>
         <div>
-          <h4>问题拆解 <span class="latin">decompose</span></h4>
+          <h3>问题拆解 <span class="latin">decompose</span></h3>
           <p>分解为最小逻辑子问题,按依赖排序,明确目标与成功标准。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">ii.</span>
         <div>
-          <h4>假设声明 <span class="latin">declare assumptions</span></h4>
+          <h3>假设声明 <span class="latin">declare assumptions</span></h3>
           <p>强制列出关键假设并自验:✅ 成立 / ❌ 不成立 / ❓ 待验证——对抗"初始假设锁定"。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">iii.</span>
         <div>
-          <h4>苏格拉底追问 <span class="latin">socratic probe</span></h4>
+          <h3>苏格拉底追问 <span class="latin">socratic probe</span></h3>
           <p>澄清、假设、证据、反例、替代方案、后果——六问筛掉伪问题。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">iv.</span>
         <div>
-          <h4>多路径比较 <span class="latin">compare paths</span></h4>
+          <h3>多路径比较 <span class="latin">compare paths</span></h3>
           <p>高复杂度问题先比较 2-3 条可行路径再深入;是否铺开由模型判断,不设"必须"。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">v.</span>
         <div>
-          <h4>搜索验证 <span class="latin">verify, never guess</span></h4>
+          <h3>搜索验证 <span class="latin">verify, never guess</span></h3>
           <p>不确定就查,禁止猜测。每轮列出未验证的信息点,查证完毕再继续。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">vi.</span>
         <div>
-          <h4>四重验证 <span class="latin">cross-validate</span></h4>
+          <h3>四重验证 <span class="latin">cross-validate</span></h3>
           <p>反思反转、第一性原理、逆向倒推、自洽性检验——结论必须连过四关。</p>
         </div>
       </div>
       <div class="essay">
         <span class="no">vii.</span>
         <div>
-          <h4>置信度评级 <span class="latin">rate confidence</span></h4>
+          <h3>置信度评级 <span class="latin">rate confidence</span></h3>
           <p>High / Medium / Low。置信度不足?回到第一步,继续迭代。</p>
         </div>
       </div>
@@ -748,7 +829,40 @@
         <span class="u"><span class="t">Cursor / Copilot</span><code>deepthink: 你的问题</code></span>
         <span class="u"><span class="t">其他工具</span><code>自动识别,无需配置</code></span>
       </div>
-      <p class="install-links">在 <a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh 查看此技能 ↗</a></p>
+      <p class="install-links">在 <a href="https://www.skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh 查看 DeepThink 的安装与版本 ↗</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">CHAPTER IV · 常见问题</div>
+      <h2>关于 DeepThink,<br><em>先回答这些</em>。</h2>
+      <p class="sec-sub">安装、适用场景与边界,一次说清。</p>
+    </div>
+    <div class="faq reveal">
+      <div class="faq-item">
+        <h3>DeepThink 是什么?</h3>
+        <p>一个按问题复杂度自动调整推理深度的开源 Agent Skill。简单问题直接回答;复杂问题进入 Deep Mode,声明假设、拆解子问题、验证结论并标注置信度。MIT 许可,免费使用。</p>
+      </div>
+      <div class="faq-item">
+        <h3>如何安装?</h3>
+        <p>运行 <code>npx skills add wxhou/deepthink</code>,然后在工具中触发:Claude Code 用 <code>/deepthink 你的问题</code>,Cursor、Copilot 等用 <code>deepthink: 你的问题</code>。更新命令是 <code>npx skills update deepthink</code>。</p>
+      </div>
+      <div class="faq-item">
+        <h3>和普通提示词有什么区别?</h3>
+        <p>提示词只影响一次对话;DeepThink 作为 Agent Skill 随工具加载,在复杂问题上按同一套协议工作:区分已验证事实、假设与未知,并用置信度标注结论。简单问题不会强行展开。</p>
+      </div>
+      <div class="faq-item">
+        <h3>支持哪些 AI 工具?</h3>
+        <p>基于 Agent Skills 开放标准,支持 Claude Code、Cursor、GitHub Copilot、Codex、Windsurf、Gemini CLI、Cline、Roo Code、Zed、VS Code、Goose、AMP 等二十余种工具,触发方式因工具而异。</p>
+      </div>
+      <div class="faq-item">
+        <h3>会保证答案正确吗?</h3>
+        <p>不会。它通过假设声明、搜索验证、四重验证和置信度评级降低自信错误;低置信度会明确标注并建议复核,但无法替代事实核查。</p>
+      </div>
     </div>
   </div>
 </section>
@@ -761,7 +875,7 @@
   <div class="wrap foot-inner">
     <div>deepthink <span class="gold">v5.3.0</span> · MIT License</div>
     <div class="foot-motto">festina <b>lente</b> — 缓缓求快</div>
-    <div><a href="https://skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh</a></div>
+    <div><a href="https://www.skills.sh/wxhou/deepthink" target="_blank" rel="noopener">skills.sh</a></div>
   </div>
 </footer>
 
