@@ -27,7 +27,19 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preload" href="assets/fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/eb-garamond-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<script>document.documentElement.classList.add('js');</script>
+<!-- systems with Songti (macOS/iOS) never use the CJK subset, so only ask Windows to preload it -->
+<script>
+  if (/Windows/.test(navigator.userAgent)) {
+    const font = document.createElement('link');
+    font.rel = 'preload';
+    font.as = 'font';
+    font.type = 'font/woff2';
+    font.crossOrigin = '';
+    font.href = 'assets/fonts/noto-serif-sc-subset-200-900.woff2';
+    document.head.appendChild(font);
+  }
+  document.documentElement.classList.add('js');
+</script>
 <style>
   /* Self-hosted Latin subsets (SIL Open Font License) */
   @font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/eb-garamond-latin-400-normal.woff2") format("woff2"); }
@@ -40,8 +52,11 @@
   @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
   @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
   @font-face { font-family: "IBM Plex Mono"; font-style: italic; font-weight: 400; font-display: swap; src: url("assets/fonts/ibm-plex-mono-latin-400-italic.woff2") format("woff2"); }
+  /* Chinese subset of Noto Serif SC (SIL OFL), variable 200-900, covers every CJK glyph used on the site */
+  @font-face { font-family: "Noto Serif SC"; font-style: normal; font-weight: 200 900; font-display: swap; unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF; src: url("assets/fonts/noto-serif-sc-subset-200-900.woff2") format("woff2"); }
 
   :root {
+    color-scheme: dark;
     --ink: #171411;
     --ink-2: #201c17;
     --ink-3: #2a251e;
@@ -55,13 +70,14 @@
     --rust: #c96f4a;
     --line: rgba(236, 228, 211, 0.12);
     --line-gold: rgba(217, 164, 65, 0.32);
+    /* Chinese: native Songti on macOS/iOS; Windows/Linux/Android use the self-hosted Noto subset */
     --serif: "EB Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
     --display: "Cormorant Garamond", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC", "STSong", "SimSun", serif;
     --mono: "IBM Plex Mono", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", monospace;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scrollbar-color: #6b5a3e #171411; scrollbar-width: thin; }
 
   body {
     background: var(--ink);
@@ -251,7 +267,8 @@
   .orn:hover .glyph { transform: scale(1.15) rotate(8deg); }
 
   /* ============ SECTIONS ============ */
-  section { padding: clamp(48px, 7vh, 92px) 0; }
+  /* keep anchor targets clear of the sticky nav */
+  section { padding: clamp(48px, 7vh, 92px) 0; scroll-margin-top: 72px; }
 
   .sec-head { max-width: 640px; margin-bottom: clamp(40px, 6vh, 64px); }
   .sec-num {
